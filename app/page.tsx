@@ -138,21 +138,21 @@ export default function Home() {
       <section className="bg-[#090d14] text-white">
         <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 lg:grid-cols-[.75fr_1.25fr] lg:px-10 lg:py-28">
           <div>
-            <p className="section-kicker text-[#6f92ff]">可交互样板 · 合成数据</p>
-            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.045em] lg:text-6xl">数据怎样变成判断，<br />判断怎样变成动作。</h2>
-            <p className="mt-6 max-w-lg leading-7 text-white/52">这不是一组好看的图表。每个异常都说明数据从哪里来、系统为什么这样判断，以及接下来由谁做什么。</p>
-            <a href="/demo" className="mt-9 inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-ink transition hover:bg-[#dce5ff]">进入私域经营驾驶舱 <ArrowRight className="size-4" /></a>
+            <p className="section-kicker text-[#6f92ff]">跨境电商 Demo · 合成数据</p>
+            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.045em] lg:text-6xl">销售、利润、广告、库存，<br />最后都要变成动作。</h2>
+            <p className="mt-6 max-w-lg leading-7 text-white/52">这不是一组好看的图表。你可以切换渠道和角色，查看每个异常的数据来源、判断规则、负责人、期限与人工闸门。</p>
+            <a href="/demo" className="mt-9 inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-ink transition hover:bg-[#dce5ff]">进入跨境经营驾驶舱 <ArrowRight className="size-4" /></a>
           </div>
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-4 shadow-2xl lg:p-6">
-            <div className="flex items-center justify-between border-b border-white/10 pb-5"><div><p className="text-sm font-semibold">澄屿生活 · 经营总览</p><p className="mt-1 text-xs text-white/35">演示数据 · 最近 7 天</p></div><span className="rounded-full bg-[#ffbd59]/12 px-3 py-1 text-xs text-[#ffd28e]">2 项需确认</span></div>
+            <div className="flex items-center justify-between border-b border-white/10 pb-5"><div><p className="text-sm font-semibold">北辰户外 · 跨境经营总览</p><p className="mt-1 text-xs text-white/35">Amazon / Shopify / TikTok Shop · 合成数据</p></div><span className="rounded-full bg-[#ffbd59]/12 px-3 py-1 text-xs text-[#ffd28e]">3 项需拍板</span></div>
             <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
               {[
-                ['支付金额', '¥428,600', '+12.4%'], ['支付订单', '1,286', '+8.7%'], ['复购占比', '31.8%', '+3.6pp'], ['退款率', '7.5%', '+1.9pp'],
+                ['净销售额', 'US$184,260', '+12.4%'], ['贡献利润', 'US$31,480', '利润率 17.1%'], ['广告花费', 'US$28,690', 'TACOS 15.6%'], ['退款率', '5.8%', '+1.1pp'],
               ].map(([label, value, delta]) => <div key={label} className="rounded-xl bg-white/[.055] p-4"><p className="text-xs text-white/40">{label}</p><p className="mt-3 text-xl font-semibold">{value}</p><p className="mt-2 text-xs text-[#7fa0ff]">{delta}</p></div>)}
             </div>
             <div className="mt-4 grid gap-3 md:grid-cols-2">
-              <div className="rounded-xl border border-[#ffbd59]/15 bg-[#ffbd59]/[.06] p-5"><div className="flex items-center gap-2 text-[#ffd28e]"><CircleAlert className="size-4" /><span className="text-xs font-semibold">商品退款异常</span></div><p className="mt-4 font-medium">R08 便携灯退款率升至 14.5%</p><p className="mt-2 text-sm leading-6 text-white/42">18 条原因集中在“充电不稳定”，高于历史基线 2 倍。</p></div>
-              <div className="rounded-xl border border-[#6f92ff]/15 bg-[#174fe6]/10 p-5"><div className="flex items-center gap-2 text-[#9db3ff]"><Database className="size-4" /><span className="text-xs font-semibold">复购机会</span></div><p className="mt-4 font-medium">126 名客户进入 14 天复购窗口</p><p className="mt-2 text-sm leading-6 text-white/42">先分配任务，再由员工确认优惠、价格与沟通内容。</p></div>
+              <div className="rounded-xl border border-[#ffbd59]/15 bg-[#ffbd59]/[.06] p-5"><div className="flex items-center gap-2 text-[#ffd28e]"><CircleAlert className="size-4" /><span className="text-xs font-semibold">库存与质量风险</span></div><p className="mt-4 font-medium">NX-HL-01 预计 11 天后断货</p><p className="mt-2 text-sm leading-6 text-white/42">海运晚于断货日 9 天；系统建议比较空运与分批补货，但不会自动采购。</p></div>
+              <div className="rounded-xl border border-[#6f92ff]/15 bg-[#174fe6]/10 p-5"><div className="flex items-center gap-2 text-[#9db3ff]"><Database className="size-4" /><span className="text-xs font-semibold">广告止损判断</span></div><p className="mt-4 font-medium">营地灯销量增长但贡献利润转负</p><p className="mt-2 text-sm leading-6 text-white/42">广告与退款使每件平均亏损 US$1.46，等待运营确认降预算。</p></div>
             </div>
           </div>
         </div>
