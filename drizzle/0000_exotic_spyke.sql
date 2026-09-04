@@ -1,0 +1,22 @@
+CREATE TABLE `leads` (
+	`id` text PRIMARY KEY NOT NULL,
+	`created_at` integer NOT NULL,
+	`contact_name` text NOT NULL,
+	`company` text NOT NULL,
+	`contact_value` text NOT NULL,
+	`is_process_owner` text NOT NULL,
+	`industry` text NOT NULL,
+	`team_size` text NOT NULL,
+	`target_process` text NOT NULL,
+	`value_score` integer NOT NULL,
+	`readiness_score` integer NOT NULL,
+	`risk_score` integer NOT NULL,
+	`risk_level` text NOT NULL,
+	`priority` text NOT NULL,
+	`lead_grade` text NOT NULL,
+	`status` text DEFAULT '新提交' NOT NULL,
+	`source` text DEFAULT '' NOT NULL,
+	`campaign` text DEFAULT '' NOT NULL,
+	`answers_json` text NOT NULL,
+	`report_json` text NOT NULL
+);

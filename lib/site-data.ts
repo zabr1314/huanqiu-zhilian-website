@@ -1,0 +1,146 @@
+import {
+  BarChart3,
+  BookOpenCheck,
+  Boxes,
+  Factory,
+  FileStack,
+  HeartHandshake,
+  ImageIcon,
+  MailCheck,
+  Network,
+  RefreshCcw,
+  UsersRound,
+} from 'lucide-react';
+
+export const navigation = [
+  { href: '/solutions', label: '改造方案' },
+  { href: '/cases', label: '真实案例' },
+  { href: '/demo', label: '体验演示' },
+  { href: '/method', label: '方法与边界' },
+  { href: '/insights', label: '内容拆解' },
+];
+
+export const solutions = [
+  {
+    slug: 'private-domain',
+    title: '客户与私域增长系统',
+    shortTitle: '客户和私域',
+    pain: '客户散落在微信、表格和订单里，没人知道什么时候该跟进。',
+    result: '把客户、订单、标签与跟进动作接成一条可追踪的增长流程。',
+    icon: HeartHandshake,
+    auditProcess: '私域跟进',
+    forWho: '已有稳定私域客户和订单，但信息分散、跟进依赖个人记忆的电商与服务团队。',
+    problems: ['客户身份无法跨渠道合并', '复购窗口与重要节点靠人工记忆', '高价值客户没有统一识别规则'],
+    data: ['脱敏客户标识与标签', '订单、退款与售后记录', '历史跟进结果与商品资料'],
+    delivery: ['统一客户档案', '复购与沉默提醒', '跟进任务和建议', '客户生命周期看板'],
+    acceptance: ['客户归档准确率', '漏跟进数量', '首次处理时间', '需要人工复核的比例'],
+    boundary: '不让 AI 自主报价、发送正式承诺或批量触达客户。关键沟通由员工确认。',
+  },
+  {
+    slug: 'operations-dashboard',
+    title: '经营驾驶舱',
+    shortTitle: '经营数据',
+    pain: '老板每周手工拼报表，问题发生以后才被看见。',
+    result: '让订单、退款、复购与风险自动汇总，并把异常转成明确动作。',
+    icon: BarChart3,
+    auditProcess: '经营报表',
+    forWho: '订单量已经不小、同时经营多个渠道，需要每周复盘经营问题的老板和运营团队。',
+    problems: ['多后台数据口径不一致', '异常晚于周会才被发现', '指标有变化但没人负责下一步'],
+    data: ['订单与商品数据', '退款和售后原因', '厂家与渠道信息', '历史经营指标'],
+    delivery: ['经营总览', '商品与厂家风险雷达', '异常提醒', '周会议题和指标下钻'],
+    acceptance: ['报表准备时间', '数据口径一致率', '异常发现提前量', '问题闭环比例'],
+    boundary: '系统只做数据判断和任务建议，不自动暂停投放、修改价格或变更生产数据。',
+  },
+  {
+    slug: 'content-production',
+    title: '跨境内容工厂',
+    shortTitle: '内容生产',
+    pain: 'Listing、商品图、视频和多语言内容反复复制粘贴。',
+    result: '把素材、生成、审核和归档变成有版本、有闸门的内容流水线。',
+    icon: ImageIcon,
+    auditProcess: '商品内容',
+    forWho: '持续上新、需要多语言与多平台素材的跨境电商和内容团队。',
+    problems: ['竞品与评论整理耗时', '同一卖点反复改写', '素材版本混乱、发布前缺少审核'],
+    data: ['商品资料与品牌规范', '历史高质量内容', '平台字段要求', '禁用词与审核规则'],
+    delivery: ['Listing 与多语言草稿', '图像和视频生产流程', '内容审核清单', '多平台素材归档'],
+    acceptance: ['单个 SKU 制作时间', '一次审核通过率', '素材错用数量', '人工修改时长'],
+    boundary: '不未经审核直接发布，不擅自生成产品参数、认证信息或对外承诺。',
+  },
+  {
+    slug: 'team-workbench',
+    title: '团队 AI 工作台',
+    shortTitle: '团队执行',
+    pain: '流程依赖老员工记忆，新人不知道下一步该做什么。',
+    result: '把知识、标准流程、日常工具与操作记录放进一个团队工作面。',
+    icon: UsersRound,
+    auditProcess: '内部知识',
+    forWho: '知识分散、协作步骤多、需要控制权限和过程记录的成长型团队。',
+    problems: ['制度和 SOP 找不到', '重复任务每个人做法不同', '结果难复核、经验难沉淀'],
+    data: ['公司知识文档', '标准作业流程', '常用表格与模板', '权限与角色信息'],
+    delivery: ['知识查询', '标准作业引导', '数据分析和材料生成', '权限、记录与结果验收'],
+    acceptance: ['知识命中率', '新人上手时间', '返工次数', '过程留痕完整度'],
+    boundary: '不绕过权限读取资料，不让 AI 替员工做需要责任主体的最终审批。',
+  },
+] as const;
+
+export const evidence = [
+  { value: '230 台', title: '设备自动化峰值', copy: '围绕多终端任务编排、状态监控与失败恢复，先验证真实高并发工作流。', icon: Boxes },
+  { value: '数万条', title: '订单数据沉淀', copy: '从原始订单到客户、商品、退款与复购视图，统一业务口径。', icon: FileStack },
+  { value: '客户 × 订单', title: '私域经营闭环', copy: '把标签、购买历史、关键节点和下一次跟进放到同一条链路里。', icon: RefreshCcw },
+  { value: '搜集 → 触达', title: '达人开发流程', copy: '达人信息搜集、筛选、邮件草拟、投放跟进与结果记录形成流程。', icon: MailCheck },
+  { value: '多终端', title: '任务调度', copy: '不是只看成功结果，也记录排队、人工接管和异常恢复。', icon: Network },
+  { value: '图像 + 视频', title: 'AI 内容生产', copy: '把生成、审核、版本与交付组织成可复用的内容流水线。', icon: Factory },
+];
+
+export const principles = [
+  { number: '01', title: '为什么改', copy: '先确认发生频率、人工成本和业务影响，不从工具清单开始。' },
+  { number: '02', title: '如何验收', copy: '试点前定义准确率、处理时间、遗漏量和人工复核成本。' },
+  { number: '03', title: '什么时候停止', copy: '达不到指标、数据不足或维护成本过高时，及时停止或缩小范围。' },
+  { number: '04', title: '出错如何恢复', copy: '关键动作保留人工确认，过程可追踪，失败后可以回退。' },
+  { number: '05', title: '经验如何沉淀', copy: '有效规则、异常情况和人工判断持续写回流程，不留在个人记忆里。' },
+];
+
+export const caseStudy = {
+  slug: 'studio-operations',
+  eyebrow: '案例 001 · 内部实战样板',
+  title: '我们如何改造自己的工作室',
+  summary: '不冒充外部客户案例。我们公开一条自己的真实流程：它原来怎样运行、哪里失败、哪些步骤必须保留人工。',
+  baseline: [
+    { value: '4 人', label: '跨角色参与' },
+    { value: '约 180 条', label: '每天处理记录' },
+    { value: '3.5 小时', label: '每天整理时间' },
+    { value: '8—12 条', label: '每周漏跟进' },
+  ],
+  sections: [
+    { title: '原始问题', copy: '客户信息、达人沟通、订单和内容任务散落在不同工具里。每天都有人复制、核对和提醒，但没有统一的完成标准。' },
+    { title: '真正诊断', copy: '问题不只是“录入太慢”，而是客户身份无法对齐、步骤没有统一状态、异常发生后也不知道由谁处理。' },
+    { title: '改造边界', copy: '程序负责搬运和校验，AI 负责提取与分类，员工确认报价和对外沟通，负责人决定规则与异常处理。' },
+    { title: '失败与调整', copy: '早期直接使用旧表格训练分类，发现字段命名混乱、同一状态含义不同。我们先统一口径，再缩小到一条流程试点。' },
+    { title: '前后结果', copy: '重复整理步骤明显减少，遗漏能更早被发现；同时保留人工抽检、规则维护和异常处理，不把维护成本藏起来。' },
+    { title: '适用边界', copy: '适合高频、可复核、有历史样本的流程。不适合需求每天变化、没有负责人、无法定义正确结果的任务。' },
+  ],
+};
+
+export const insights = [
+  {
+    slug: 'why-not-ai-customer-service-first',
+    category: '方法拆解',
+    title: '为什么 AI 客服不一定是第一条该改的流程',
+    summary: '对外承诺、异常复杂、责任边界不清时，看似高频的客服未必适合最先自动化。',
+    icon: BookOpenCheck,
+  },
+  {
+    slug: 'from-orders-to-repeat-purchase',
+    category: '私域增长',
+    title: '几万条订单，怎样变成可执行的复购流程',
+    summary: '从客户归一、周期判断到人工回访，拆解数据如何变成下一步动作。',
+    icon: RefreshCcw,
+  },
+  {
+    slug: 'dashboard-to-weekly-actions',
+    category: '经营系统',
+    title: '老板每天打开 6 个后台，问题不只是缺一张大屏',
+    summary: '真正的经营驾驶舱，要能解释数据来源、系统判断和谁在什么时候处理。',
+    icon: BarChart3,
+  },
+];
