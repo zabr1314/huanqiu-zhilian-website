@@ -14,6 +14,7 @@ export function SiteFooter() {
           <div className="mt-5 grid gap-3 text-sm text-white/50">
             <a className="hover:text-white" href="/audit">3 分钟流程体检</a>
             <a className="hover:text-white" href="/demo">跨境经营驾驶舱 Demo</a>
+            <a className="hover:text-white" href="/demo/content-factory">AIGC 内容增长工厂 Demo</a>
             <a className="hover:text-white" href="/cases/studio-operations">内部实战样板</a>
             <a className="hover:text-white" href="/method">方法与边界</a>
           </div>

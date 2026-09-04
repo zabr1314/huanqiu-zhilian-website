@@ -25,7 +25,7 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
             <p className="mt-7 max-w-2xl text-lg leading-8 text-ink/58">{solution.result}</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href={`/audit?process=${encodeURIComponent(solution.auditProcess)}`} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent px-6 text-sm font-semibold text-white hover:bg-accent-strong">体检这条流程 <ArrowRight className="size-4" /></a>
-              <a href="/demo" className="inline-flex h-12 items-center justify-center rounded-xl border border-ink/15 px-6 text-sm font-semibold text-ink hover:bg-paper">先看交互样板</a>
+              {solution.demoHref && <a href={solution.demoHref} className="inline-flex h-12 items-center justify-center rounded-xl border border-ink/15 px-6 text-sm font-semibold text-ink hover:bg-paper">{solution.demoLabel}</a>}
             </div>
           </div>
           <div className="relative flex min-h-80 items-center justify-center overflow-hidden rounded-3xl bg-[#090d14] text-white">

@@ -137,7 +137,10 @@ function DashboardWorkspace() {
             <span className="grid size-9 place-items-center rounded-xl bg-[#174fe6] text-sm font-bold">NX</span>
             <span><span className="block text-sm font-semibold">NORTHSTAR LABS</span><span className="mt-0.5 block text-xs text-white/45">跨境经营驾驶舱</span></span>
           </Link>
-          <Link href="/" className="mt-5 inline-flex items-center gap-2 text-xs text-white/45 hover:text-white"><ArrowLeft className="size-3.5" />返回 AI 改造局</Link>
+          <div className="mt-5 grid gap-2">
+            <Link href="/demo/content-factory" className="inline-flex items-center gap-2 text-xs font-semibold text-[#9db3ff] hover:text-white"><Sparkles className="size-3.5" />切换到 AIGC 内容工厂</Link>
+            <Link href="/" className="inline-flex items-center gap-2 text-xs text-white/45 hover:text-white"><ArrowLeft className="size-3.5" />返回 AI 改造局</Link>
+          </div>
         </SidebarHeader>
         <SidebarContent className="px-2 py-3">
           {moduleGroups.map((group) => (

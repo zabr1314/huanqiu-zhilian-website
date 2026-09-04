@@ -141,7 +141,10 @@ export default function Home() {
             <p className="section-kicker text-[#6f92ff]">跨境电商 Demo · 合成数据</p>
             <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.045em] lg:text-6xl">销售、利润、广告、库存，<br />最后都要变成动作。</h2>
             <p className="mt-6 max-w-lg leading-7 text-white/52">这不是一组好看的图表。你可以切换渠道和角色，查看每个异常的数据来源、判断规则、负责人、期限与人工闸门。</p>
-            <a href="/demo" className="mt-9 inline-flex h-12 items-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-ink transition hover:bg-[#dce5ff]">进入跨境经营驾驶舱 <ArrowRight className="size-4" /></a>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <a href="/demo" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-ink transition hover:bg-[#dce5ff]">进入跨境经营驾驶舱 <ArrowRight className="size-4" /></a>
+              <a href="/demo/content-factory" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[.04] px-5 text-sm font-semibold text-white transition hover:bg-white/[.09]"><Sparkles className="size-4 text-[#b9aaff]" />体验 AIGC 内容工厂</a>
+            </div>
           </div>
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-4 shadow-2xl lg:p-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-5"><div><p className="text-sm font-semibold">北辰户外 · 跨境经营总览</p><p className="mt-1 text-xs text-white/35">Amazon / Shopify / TikTok Shop · 合成数据</p></div><span className="rounded-full bg-[#ffbd59]/12 px-3 py-1 text-xs text-[#ffd28e]">3 项需拍板</span></div>
