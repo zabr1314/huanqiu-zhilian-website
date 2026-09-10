@@ -1,12 +1,15 @@
 import {
   ArrowDown,
   ArrowRight,
+  BarChart3,
   Check,
   CircleAlert,
-  Database,
+  FileCheck2,
   ShieldCheck,
   Sparkles,
 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
@@ -35,8 +38,8 @@ export default function Home() {
             </h1>
             <p className="mt-7 max-w-[660px] text-lg leading-8 text-ink/62 lg:text-xl">面向跨境、电商、私域和内容团队。先做流程体检，再用 7—14 天跑通一个最小试点。不是装一个聊天框，而是让客户、订单、内容和报表真正流起来。</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="/audit" className="group inline-flex h-13 items-center justify-center gap-2 rounded-xl bg-ink px-6 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-accent">开始 3 分钟流程体检<ArrowRight className="size-4 transition group-hover:translate-x-0.5" /></a>
-              <a href="/demo" className="inline-flex h-13 items-center justify-center gap-2 rounded-xl border border-ink/15 bg-white/65 px-6 text-[15px] font-semibold text-ink transition hover:border-ink/35 hover:bg-white"><Sparkles className="size-4 text-accent" />查看可交互演示</a>
+              <Link href="/audit" className="group inline-flex h-13 items-center justify-center gap-2 rounded-xl bg-ink px-6 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-accent">开始 3 分钟流程体检<ArrowRight className="size-4 transition group-hover:translate-x-0.5" /></Link>
+              <Link href="/demo" className="inline-flex h-13 items-center justify-center gap-2 rounded-xl border border-ink/15 bg-white/65 px-6 text-[15px] font-semibold text-ink transition hover:border-ink/35 hover:bg-white"><Sparkles className="size-4 text-accent" />查看样板中心</Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-x-5 gap-y-3 border-t border-ink/10 pt-6">
               {proofTags.map((tag) => <span key={tag} className="inline-flex items-center gap-1.5 text-xs font-medium text-ink/55"><Check className="size-3.5 text-accent" />{tag}</span>)}
@@ -44,7 +47,7 @@ export default function Home() {
           </div>
 
           <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] bg-[#070b12] shadow-[0_35px_80px_rgba(14,21,34,.22)] lg:min-h-[650px]">
-            <img src="/hero-ai-transformation.png" alt="企业数据经过智能工作流流向业务系统的抽象流程蓝图" className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-90" />
+            <Image src="/hero-ai-transformation.png" alt="企业数据经过智能工作流流向业务系统的抽象流程蓝图" fill priority sizes="(min-width: 1024px) 49vw, 100vw" className="object-cover object-[62%_center] opacity-90" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#070b12] via-transparent to-[#070b12]/20" />
             <div className="absolute left-5 right-5 top-5 flex items-center justify-between rounded-full border border-white/10 bg-black/25 px-4 py-3 text-xs text-white/65 backdrop-blur-md">
               <span className="inline-flex items-center gap-2"><span className="pulse-dot size-2 rounded-full bg-[#47d7ff]" />流程样板正在运行</span><span>人工确认已开启</span>
@@ -112,13 +115,13 @@ export default function Home() {
             {solutions.map((item, index) => {
               const Icon = item.icon;
               return (
-                <a key={item.slug} href={`/solutions/${item.slug}`} className="group relative min-h-[290px] overflow-hidden rounded-2xl border border-ink/12 bg-paper p-7 transition hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_22px_50px_rgba(17,23,34,.08)] lg:p-9">
+                <Link key={item.slug} href={`/solutions/${item.slug}`} className="group relative min-h-[290px] overflow-hidden rounded-2xl border border-ink/12 bg-paper p-7 transition hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_22px_50px_rgba(17,23,34,.08)] lg:p-9">
                   <span className="absolute right-6 top-6 font-mono text-xs text-ink/25">0{index + 1}</span>
                   <span className="grid size-11 place-items-center rounded-full bg-white text-accent shadow-sm"><Icon className="size-5" /></span>
                   <h3 className="mt-12 text-2xl font-semibold tracking-[-.035em] text-ink">{item.shortTitle}</h3>
                   <p className="mt-4 max-w-lg leading-7 text-ink/55">{item.pain}</p>
                   <span className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-accent">看这条流程怎么改 <ArrowRight className="size-4 transition group-hover:translate-x-1" /></span>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -136,27 +139,42 @@ export default function Home() {
       </section>
 
       <section className="bg-[#090d14] text-white">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 lg:grid-cols-[.75fr_1.25fr] lg:px-10 lg:py-28">
-          <div>
-            <p className="section-kicker text-[#6f92ff]">跨境电商 Demo · 合成数据</p>
-            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.045em] lg:text-6xl">销售、利润、广告、库存，<br />最后都要变成动作。</h2>
-            <p className="mt-6 max-w-lg leading-7 text-white/52">这不是一组好看的图表。你可以切换渠道和角色，查看每个异常的数据来源、判断规则、负责人、期限与人工闸门。</p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="/demo" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-semibold text-ink transition hover:bg-[#dce5ff]">进入跨境经营驾驶舱 <ArrowRight className="size-4" /></a>
-              <a href="/demo/content-factory" className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[.04] px-5 text-sm font-semibold text-white transition hover:bg-white/[.09]"><Sparkles className="size-4 text-[#b9aaff]" />体验 AIGC 内容工厂</a>
+        <div className="mx-auto max-w-[1440px] px-5 py-20 lg:px-10 lg:py-28">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div>
+              <p className="section-kicker text-[#6f92ff]">样板中心 · 合成数据</p>
+              <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-[-.045em] lg:text-6xl">不只讲能做什么，<br />直接看流程怎样运行。</h2>
+            </div>
+            <div className="max-w-lg">
+              <p className="leading-7 text-white/52">两个样板平级呈现：一个把经营异常变成动作，一个把商品事实变成可审核内容。</p>
+              <Link href="/demo" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#9db3ff]">查看完整样板中心 <ArrowRight className="size-4" /></Link>
             </div>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-4 shadow-2xl lg:p-6">
-            <div className="flex items-center justify-between border-b border-white/10 pb-5"><div><p className="text-sm font-semibold">北辰户外 · 跨境经营总览</p><p className="mt-1 text-xs text-white/35">Amazon / Shopify / TikTok Shop · 合成数据</p></div><span className="rounded-full bg-[#ffbd59]/12 px-3 py-1 text-xs text-[#ffd28e]">3 项需拍板</span></div>
-            <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
-              {[
-                ['净销售额', 'US$184,260', '+12.4%'], ['贡献利润', 'US$31,480', '利润率 17.1%'], ['广告花费', 'US$28,690', 'TACOS 15.6%'], ['退款率', '5.8%', '+1.1pp'],
-              ].map(([label, value, delta]) => <div key={label} className="rounded-xl bg-white/[.055] p-4"><p className="text-xs text-white/40">{label}</p><p className="mt-3 text-xl font-semibold">{value}</p><p className="mt-2 text-xs text-[#7fa0ff]">{delta}</p></div>)}
-            </div>
-            <div className="mt-4 grid gap-3 md:grid-cols-2">
-              <div className="rounded-xl border border-[#ffbd59]/15 bg-[#ffbd59]/[.06] p-5"><div className="flex items-center gap-2 text-[#ffd28e]"><CircleAlert className="size-4" /><span className="text-xs font-semibold">库存与质量风险</span></div><p className="mt-4 font-medium">NX-HL-01 预计 11 天后断货</p><p className="mt-2 text-sm leading-6 text-white/42">海运晚于断货日 9 天；系统建议比较空运与分批补货，但不会自动采购。</p></div>
-              <div className="rounded-xl border border-[#6f92ff]/15 bg-[#174fe6]/10 p-5"><div className="flex items-center gap-2 text-[#9db3ff]"><Database className="size-4" /><span className="text-xs font-semibold">广告止损判断</span></div><p className="mt-4 font-medium">营地灯销量增长但贡献利润转负</p><p className="mt-2 text-sm leading-6 text-white/42">广告与退款使每件平均亏损 US$1.46，等待运营确认降预算。</p></div>
-            </div>
+
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+            <article className="overflow-hidden rounded-2xl border border-white/10 bg-white/[.045] p-5 lg:p-7">
+              <div className="flex items-center justify-between gap-4"><span className="grid size-11 place-items-center rounded-xl bg-[#174fe6]"><BarChart3 className="size-5" /></span><span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/42">经营决策</span></div>
+              <p className="mt-9 text-xs font-semibold uppercase tracking-[.14em] text-[#7fa0ff]">跨境经营驾驶舱</p>
+              <h3 className="mt-4 text-3xl font-semibold tracking-[-.04em]">把销售、利润、库存和广告，变成今天该处理的动作。</h3>
+              <p className="mt-4 leading-7 text-white/48">切换角色与渠道，追溯每个异常的数据来源、判断规则、负责人和人工闸门。</p>
+              <div className="mt-7 grid grid-cols-3 gap-2">
+                {[["净销售额", "US$184K"], ["贡献利润", "17.1%"], ["需拍板", "3 项"]].map(([label, value]) => <div key={label} className="rounded-xl bg-white/[.055] p-3"><p className="text-[11px] text-white/35">{label}</p><p className="mt-2 text-sm font-semibold">{value}</p></div>)}
+              </div>
+              <div className="mt-3 flex items-start gap-3 rounded-xl border border-[#ffbd59]/15 bg-[#ffbd59]/[.06] p-4"><CircleAlert className="mt-0.5 size-4 shrink-0 text-[#ffd28e]" /><p className="text-sm leading-6 text-white/68">预计 11 天后断货；系统给出补货比较，但不会自动采购。</p></div>
+              <Link href="/demo/commerce" className="mt-7 inline-flex h-12 w-full items-center justify-between rounded-xl bg-white px-5 text-sm font-semibold text-ink transition hover:bg-[#dce5ff]">进入样板 <ArrowRight className="size-4" /></Link>
+            </article>
+
+            <article className="overflow-hidden rounded-2xl border border-[#8f7cff]/20 bg-[radial-gradient(circle_at_100%_0%,rgba(130,92,255,.22),transparent_36%),rgba(255,255,255,.045)] p-5 lg:p-7">
+              <div className="flex items-center justify-between gap-4"><span className="grid size-11 place-items-center rounded-xl bg-[linear-gradient(135deg,#725cff,#247dff)]"><Sparkles className="size-5" /></span><span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/42">内容交付</span></div>
+              <p className="mt-9 text-xs font-semibold uppercase tracking-[.14em] text-[#b9aaff]">AIGC 内容工厂</p>
+              <h3 className="mt-4 text-3xl font-semibold tracking-[-.04em]">把一份商品事实，变成多平台可审核的内容包。</h3>
+              <p className="mt-4 leading-7 text-white/48">体验 Listing、商品图、短视频与多语言生成，以及错误声明被拦截、修订和人工批准。</p>
+              <div className="mt-7 overflow-hidden rounded-xl border border-white/10 bg-[#101621]">
+                <div className="flex items-center justify-between border-b border-white/10 px-4 py-3"><span className="text-xs font-semibold text-[#b9aaff]">发布前事实检查</span><span className="rounded-full bg-[#ff7c66]/15 px-2.5 py-1 text-[11px] text-[#ffad9f]">1 项阻断</span></div>
+                <div className="flex items-start gap-3 p-4"><FileCheck2 className="mt-0.5 size-4 shrink-0 text-[#b9aaff]" /><div><p className="text-sm font-medium">IPX7 / 12-hour runtime 无资料依据</p><p className="mt-1 text-xs leading-5 text-white/38">修订为检测报告支持的 IPX4 与 4–8 小时。</p></div></div>
+              </div>
+              <Link href="/demo/content-factory" className="mt-7 inline-flex h-12 w-full items-center justify-between rounded-xl bg-[linear-gradient(135deg,#725cff,#247dff)] px-5 text-sm font-semibold text-white transition hover:brightness-110">进入样板 <ArrowRight className="size-4" /></Link>
+            </article>
           </div>
         </div>
       </section>
@@ -164,7 +182,7 @@ export default function Home() {
       <section className="border-b border-ink/10 bg-white">
         <div className="mx-auto max-w-[1440px] px-5 py-20 lg:px-10 lg:py-28">
           <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
-            <div><p className="section-kicker">{caseStudy.eyebrow}</p><h2 className="section-title mt-5">{caseStudy.title}</h2><p className="mt-6 leading-7 text-ink/55">{caseStudy.summary}</p><a href={`/cases/${caseStudy.slug}`} className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-accent">查看完整证据链 <ArrowRight className="size-4" /></a></div>
+            <div><p className="section-kicker">{caseStudy.eyebrow}</p><h2 className="section-title mt-5">{caseStudy.title}</h2><p className="mt-6 leading-7 text-ink/55">{caseStudy.summary}</p><Link href={`/cases/${caseStudy.slug}`} className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-accent">查看完整证据链 <ArrowRight className="size-4" /></Link></div>
             <div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-ink/10 bg-paper">
               {caseStudy.baseline.map((item) => <div key={item.label} className="min-h-40 border-b border-r border-ink/10 p-6 even:border-r-0 [&:nth-last-child(-n+2)]:border-b-0 lg:p-8"><p className="text-3xl font-semibold tracking-[-.05em] text-ink lg:text-5xl">{item.value}</p><p className="mt-4 text-sm text-ink/45">{item.label}</p></div>)}
             </div>
@@ -173,7 +191,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-[1440px] px-5 py-20 lg:px-10 lg:py-28">
-        <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end"><div><p className="section-kicker">方法与边界</p><h2 className="section-title mt-5">五件事，比“用了多少 AI”更重要。</h2></div><a href="/method" className="inline-flex items-center gap-2 text-sm font-semibold text-accent">查看完整方法 <ArrowRight className="size-4" /></a></div>
+        <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end"><div><p className="section-kicker">方法与边界</p><h2 className="section-title mt-5">五件事，比“用了多少 AI”更重要。</h2></div><Link href="/method" className="inline-flex items-center gap-2 text-sm font-semibold text-accent">查看完整方法 <ArrowRight className="size-4" /></Link></div>
         <div className="mt-12 grid border-l border-t border-ink/10 md:grid-cols-5">
           {principles.map((item) => <div key={item.number} className="min-h-64 border-b border-r border-ink/10 p-6"><span className="font-mono text-xs text-accent">{item.number}</span><h3 className="mt-16 text-lg font-semibold text-ink">{item.title}</h3><p className="mt-3 text-sm leading-6 text-ink/50">{item.copy}</p></div>)}
         </div>
@@ -182,7 +200,7 @@ export default function Home() {
       <section className="border-t border-ink/10 bg-accent text-white">
         <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 lg:grid-cols-[1fr_auto] lg:items-end lg:px-10 lg:py-20">
           <div><p className="text-xs font-semibold uppercase tracking-[.18em] text-white/55">从一个流程开始</p><h2 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight tracking-[-.05em] lg:text-6xl">不必先决定做一套大系统。<br />先用两周验证它值不值得改。</h2></div>
-          <a href="/audit" className="inline-flex h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-accent transition hover:-translate-y-0.5">开始 3 分钟流程体检 <ArrowRight className="size-4" /></a>
+          <Link href="/audit" className="inline-flex h-13 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-semibold text-accent transition hover:-translate-y-0.5">开始 3 分钟流程体检 <ArrowRight className="size-4" /></Link>
         </div>
       </section>
 

@@ -30,7 +30,7 @@ const articleCopy: Record<string, { intro: string; sections: { title: string; co
       { title: '判断需要基线', copy: '“退款率 7.5%”本身不说明问题。需要与历史、品类、厂家或批次比较，明确触发异常的规则。' },
       { title: '动作需要人工闸门', copy: '系统可以建议暂停加投、检查批次或回访客户，但停投、停采、报价等关键动作仍由有权限的人确认。' },
     ],
-    cta: { label: '进入经营驾驶舱 Demo', href: '/demo' },
+    cta: { label: '进入跨境经营驾驶舱', href: '/demo/commerce' },
   },
 };
 

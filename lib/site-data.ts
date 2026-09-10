@@ -14,10 +14,9 @@ import {
 
 export const navigation = [
   { href: '/solutions', label: '改造方案' },
+  { href: '/demo', label: '样板中心' },
   { href: '/cases', label: '真实案例' },
-  { href: '/demo', label: '体验演示' },
   { href: '/method', label: '方法与边界' },
-  { href: '/insights', label: '内容拆解' },
 ];
 
 export const solutions = [
@@ -40,14 +39,14 @@ export const solutions = [
   },
   {
     slug: 'operations-dashboard',
-    title: '经营驾驶舱',
+    title: '跨境经营驾驶舱',
     shortTitle: '经营数据',
     pain: '老板每周手工拼报表，问题发生以后才被看见。',
     result: '让订单、退款、复购与风险自动汇总，并把异常转成明确动作。',
     icon: BarChart3,
     auditProcess: '经营报表',
-    demoHref: '/demo',
-    demoLabel: '体验跨境经营驾驶舱',
+    demoHref: '/demo/commerce',
+    demoLabel: '进入样板',
     forWho: '订单量已经不小、同时经营多个渠道，需要每周复盘经营问题的老板和运营团队。',
     problems: ['多后台数据口径不一致', '异常晚于周会才被发现', '指标有变化但没人负责下一步'],
     data: ['订单与商品数据', '退款和售后原因', '厂家与渠道信息', '历史经营指标'],
@@ -57,14 +56,14 @@ export const solutions = [
   },
   {
     slug: 'content-production',
-    title: '跨境内容工厂',
+    title: 'AIGC 内容工厂',
     shortTitle: '内容生产',
     pain: 'Listing、商品图、视频和多语言内容反复复制粘贴。',
     result: '把素材、生成、审核和归档变成有版本、有闸门的内容流水线。',
     icon: ImageIcon,
     auditProcess: '商品内容',
     demoHref: '/demo/content-factory',
-    demoLabel: '体验 AIGC 内容工厂',
+    demoLabel: '进入样板',
     forWho: '持续上新、需要多语言与多平台素材的跨境电商和内容团队。',
     problems: ['竞品与评论整理耗时', '同一卖点反复改写', '素材版本混乱、发布前缺少审核'],
     data: ['商品资料与品牌规范', '历史高质量内容', '平台字段要求', '禁用词与审核规则'],
@@ -110,7 +109,7 @@ export const principles = [
 
 export const caseStudy = {
   slug: 'studio-operations',
-  eyebrow: '案例 001 · 内部实战样板',
+  eyebrow: '案例 001 · 内部实战案例',
   title: '我们如何改造自己的工作室',
   summary: '不冒充外部客户案例。我们公开一条自己的真实流程：它原来怎样运行、哪里失败、哪些步骤必须保留人工。',
   baseline: [

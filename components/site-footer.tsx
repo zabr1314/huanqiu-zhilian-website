@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 export function SiteFooter() {
   return (
@@ -10,21 +11,25 @@ export function SiteFooter() {
           <p className="mt-5 max-w-xl leading-7 text-white/48">先看流程值不值得改，再决定用什么技术。关键动作保留人工确认，每个结果都能追踪、验收和恢复。</p>
         </div>
         <div>
-          <p className="text-sm font-semibold">开始了解</p>
+          <p className="text-sm font-semibold">样板与诊断</p>
           <div className="mt-5 grid gap-3 text-sm text-white/50">
-            <a className="hover:text-white" href="/audit">3 分钟流程体检</a>
-            <a className="hover:text-white" href="/demo">跨境经营驾驶舱 Demo</a>
-            <a className="hover:text-white" href="/demo/content-factory">AIGC 内容增长工厂 Demo</a>
-            <a className="hover:text-white" href="/cases/studio-operations">内部实战样板</a>
-            <a className="hover:text-white" href="/method">方法与边界</a>
+            <Link className="hover:text-white" href="/demo">样板中心</Link>
+            <Link className="hover:text-white" href="/demo/commerce">跨境经营驾驶舱</Link>
+            <Link className="hover:text-white" href="/demo/content-factory">AIGC 内容工厂</Link>
+            <Link className="hover:text-white" href="/audit">3 分钟流程体检</Link>
           </div>
         </div>
         <div>
           <p className="text-sm font-semibold">下一步</p>
-          <a href="/about#contact" className="mt-5 inline-flex items-center gap-2 border-b border-white/25 pb-2 text-sm text-white/72 hover:border-white hover:text-white">
+          <Link href="/about#contact" className="mt-5 inline-flex items-center gap-2 border-b border-white/25 pb-2 text-sm text-white/72 hover:border-white hover:text-white">
             预约 30 分钟诊断 <ArrowUpRight className="size-4" />
-          </a>
+          </Link>
           <p className="mt-6 text-xs leading-5 text-white/35">公开页面不收集身份证、客户名单或企业原始文件。联系方式仅用于发送诊断结果与预约沟通。</p>
+          <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/40">
+            <Link className="hover:text-white" href="/cases/studio-operations">内部实战案例</Link>
+            <Link className="hover:text-white" href="/insights">内容拆解</Link>
+            <Link className="hover:text-white" href="/method">方法与边界</Link>
+          </div>
         </div>
       </div>
       <div className="border-t border-white/10">

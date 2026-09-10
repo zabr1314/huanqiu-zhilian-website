@@ -45,6 +45,17 @@ const roleDefaultModule: Record<DemoRole, DemoModuleId> = {
   owner: 'overview', operator: 'ads', supply: 'inventory',
 };
 
+export type DemoInitialState = {
+  role: DemoRole;
+  moduleId: DemoModuleId;
+  channel: DemoChannel;
+  period: DemoPeriod;
+};
+
+const defaultInitialState: DemoInitialState = {
+  role: 'owner', moduleId: 'overview', channel: 'all', period: '30d',
+};
+
 const trend = [
   ['25', 22280, 18.4], ['26', 24160, 18.1], ['27', 23640, 17.8],
   ['28', 25290, 17.5], ['29', 27640, 16.9], ['30', 30280, 16.4],
@@ -59,7 +70,7 @@ const waterfall = [
   ['贡献利润', 31480, '#55c99a'],
 ] as const;
 
-export function DemoDashboard() {
+export function DemoDashboard({ initialState = defaultInitialState }: { initialState?: DemoInitialState }) {
   return (
     <SidebarProvider
       defaultOpen
@@ -71,17 +82,17 @@ export function DemoDashboard() {
         '--sidebar-ring': '#6f92ff',
       } as React.CSSProperties}
     >
-      <DashboardWorkspace />
+      <DashboardWorkspace initialState={initialState} />
     </SidebarProvider>
   );
 }
 
-function DashboardWorkspace() {
+function DashboardWorkspace({ initialState }: { initialState: DemoInitialState }) {
   const { setOpenMobile } = useSidebar();
-  const [role, setRole] = React.useState<DemoRole>('owner');
-  const [moduleId, setModuleId] = React.useState<DemoModuleId>('overview');
-  const [channel, setChannel] = React.useState<DemoChannel>('all');
-  const [period, setPeriod] = React.useState<DemoPeriod>('30d');
+  const [role, setRole] = React.useState<DemoRole>(initialState.role);
+  const [moduleId, setModuleId] = React.useState<DemoModuleId>(initialState.moduleId);
+  const [channel, setChannel] = React.useState<DemoChannel>(initialState.channel);
+  const [period, setPeriod] = React.useState<DemoPeriod>(initialState.period);
   const [selected, setSelected] = React.useState<DemoDecision | null>(null);
   const [dataOpen, setDataOpen] = React.useState(false);
   const [planned, setPlanned] = React.useState<string[]>([]);
@@ -138,8 +149,9 @@ function DashboardWorkspace() {
             <span><span className="block text-sm font-semibold">NORTHSTAR LABS</span><span className="mt-0.5 block text-xs text-white/45">跨境经营驾驶舱</span></span>
           </Link>
           <div className="mt-5 grid gap-2">
-            <Link href="/demo/content-factory" className="inline-flex items-center gap-2 text-xs font-semibold text-[#9db3ff] hover:text-white"><Sparkles className="size-3.5" />切换到 AIGC 内容工厂</Link>
-            <Link href="/" className="inline-flex items-center gap-2 text-xs text-white/45 hover:text-white"><ArrowLeft className="size-3.5" />返回 AI 改造局</Link>
+            <Link href="/demo" className="inline-flex items-center gap-2 text-xs font-semibold text-[#9db3ff] hover:text-white"><ArrowLeft className="size-3.5" />返回样板中心</Link>
+            <Link href="/demo/content-factory" className="inline-flex items-center gap-2 text-xs text-white/55 hover:text-white"><Sparkles className="size-3.5" />切换到 AIGC 内容工厂</Link>
+            <Link href="/" className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-white"><ArrowLeft className="size-3.5" />返回官网</Link>
           </div>
         </SidebarHeader>
         <SidebarContent className="px-2 py-3">

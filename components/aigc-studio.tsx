@@ -33,7 +33,18 @@ const moduleIcons: Record<AigcModuleId, LucideIcon> = {
   video: Film, localization: Languages, review: ClipboardCheck, versions: Archive,
 };
 
-export function AigcStudio() {
+export type AigcInitialState = {
+  moduleId: AigcModuleId;
+  channel: string;
+  locale: string;
+  variant: string;
+};
+
+const defaultInitialState: AigcInitialState = {
+  moduleId: 'workspace', channel: 'amazon-us', locale: 'en-US', variant: 'a',
+};
+
+export function AigcStudio({ initialState = defaultInitialState }: { initialState?: AigcInitialState }) {
   return (
     <SidebarProvider
       defaultOpen
@@ -44,17 +55,17 @@ export function AigcStudio() {
         '--sidebar-accent-foreground': '#fff', '--sidebar-ring': '#9b87ff',
       } as React.CSSProperties}
     >
-      <StudioWorkspace />
+      <StudioWorkspace initialState={initialState} />
     </SidebarProvider>
   );
 }
 
-function StudioWorkspace() {
+function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
   const { setOpenMobile } = useSidebar();
-  const [moduleId, setModuleId] = React.useState<AigcModuleId>('workspace');
-  const [channel, setChannel] = React.useState('amazon-us');
-  const [locale, setLocale] = React.useState('en-US');
-  const [variant, setVariant] = React.useState('a');
+  const [moduleId, setModuleId] = React.useState<AigcModuleId>(initialState.moduleId);
+  const [channel, setChannel] = React.useState(initialState.channel);
+  const [locale, setLocale] = React.useState(initialState.locale);
+  const [variant, setVariant] = React.useState(initialState.variant);
   const [stage, setStage] = React.useState<AigcStage>('draft');
   const [dataOpen, setDataOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
@@ -100,9 +111,13 @@ function StudioWorkspace() {
         <SidebarHeader className="gap-0 border-b border-white/10 p-5">
           <Link href="/" className="flex items-center gap-3" aria-label="返回官网首页">
             <span className="grid size-9 place-items-center rounded-xl bg-[linear-gradient(135deg,#6f5bff,#1c9dff)] text-sm font-bold">AI</span>
-            <span><span className="block text-sm font-semibold">CONTENT LAB</span><span className="mt-0.5 block text-xs text-white/45">AIGC 内容增长工厂</span></span>
+            <span><span className="block text-sm font-semibold">CONTENT LAB</span><span className="mt-0.5 block text-xs text-white/45">AIGC 内容工厂</span></span>
           </Link>
-          <Link href="/demo" className="mt-5 inline-flex items-center gap-2 text-xs text-white/45 hover:text-white"><ArrowLeft className="size-3.5" />切换到经营驾驶舱</Link>
+          <div className="mt-5 grid gap-2">
+            <Link href="/demo" className="inline-flex items-center gap-2 text-xs font-semibold text-[#b9aaff] hover:text-white"><ArrowLeft className="size-3.5" />返回样板中心</Link>
+            <Link href="/demo/commerce" className="inline-flex items-center gap-2 text-xs text-white/55 hover:text-white"><ArrowRight className="size-3.5" />切换到跨境经营驾驶舱</Link>
+            <Link href="/" className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-white"><ArrowLeft className="size-3.5" />返回官网</Link>
+          </div>
         </SidebarHeader>
         <SidebarContent className="px-2 py-3">
           {['生产工作台', '内容产物', '质量与交付'].map((group) => (
