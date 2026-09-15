@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { ModelEditorial } from '@/components/model-editorial';
 import {
   BrandFilmDialog,
   FeaturedBrandWork,
@@ -297,11 +298,12 @@ export function CreativeHome() {
         </div>
       </section>
       <FeaturedBrandWork onPlay={() => setFilmOpen(true)} />
+      <ModelEditorial />
       <section id="agent-studio" className="studio-agent-section">
         <div className="studio-container">
           <div className="studio-section-heading">
             <div>
-              <p className="studio-kicker">02 / BEHIND THE WORK</p>
+              <p className="studio-kicker">03 / BEHIND THE WORK</p>
               <h2>
                 看见作品。
                 <br />
@@ -639,7 +641,7 @@ export function CreativeHome() {
       </section>
       <section id="about-studio" className="studio-container studio-about">
         <div>
-          <p className="studio-kicker">03 / OUR PRACTICE</p>
+          <p className="studio-kicker">04 / OUR PRACTICE</p>
           <h2>
             把创意与执行，
             <br />
