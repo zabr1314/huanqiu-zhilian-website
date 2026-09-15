@@ -11,7 +11,7 @@ export type AigcModuleId =
 export type AigcStage = 'draft' | 'checked' | 'revised' | 'review' | 'approved' | 'exported';
 
 export const aigcModules: { id: AigcModuleId; label: string; group: string; count?: number }[] = [
-  { id: 'workspace', label: '内容任务', group: '生产工作台', count: 3 },
+  { id: 'workspace', label: '内容生产台', group: '生产工作台' },
   { id: 'facts', label: '商品事实', group: '生产工作台' },
   { id: 'listing', label: 'Listing 文案', group: '内容产物', count: 3 },
   { id: 'images', label: '商品图', group: '内容产物', count: 3 },

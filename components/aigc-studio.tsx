@@ -4,8 +4,8 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Archive, ArrowLeft, ArrowRight, BadgeCheck, BookOpenCheck, Boxes, Check,
-  CheckCircle2, ChevronRight, CircleAlert, ClipboardCheck, Database, FileText,
+  Archive, ArrowLeft, ArrowRight, BookOpenCheck, Boxes,
+  CheckCircle2, CircleAlert, ClipboardCheck, Database, FileText,
   Film, Globe2, ImageIcon, Languages, LayoutTemplate, Menu, PackageCheck,
   RefreshCcw, ScanSearch, ShieldCheck, Sparkles, type LucideIcon,
 } from 'lucide-react';
@@ -20,10 +20,11 @@ import {
 } from '@/components/ui/sidebar';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ContentMasterWorkspace } from '@/components/aigc-content-master';
 import {
   aigcModules, blockedClaims, campaignBrief, contentChannels, contentLocales,
-  contentTasks, listingVariants, localizationRows, pipelineSteps, productFacts,
-  reviewChecks, storyboard, versionRows, stageIndex, stageLabel,
+  listingVariants, localizationRows, productFacts, reviewChecks, storyboard,
+  versionRows, stageLabel,
   type AigcModuleId, type AigcStage,
 } from '@/lib/aigc-demo';
 import { cn } from '@/lib/utils';
@@ -69,11 +70,11 @@ function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
   const [stage, setStage] = React.useState<AigcStage>('draft');
   const [dataOpen, setDataOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const [resetSeed, setResetSeed] = React.useState(0);
 
   const activeVariant = listingVariants.find((item) => item.id === variant) ?? listingVariants[0];
   const isRevised = ['revised', 'review', 'approved', 'exported'].includes(stage);
   const hasChecked = stage !== 'draft';
-  const activeStep = stageIndex(stage);
 
   React.useEffect(() => {
     const params = new URLSearchParams({ task: moduleId, channel, lang: locale, version: variant });
@@ -88,13 +89,37 @@ function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
 
   function resetDemo() {
     setModuleId('workspace'); setChannel('amazon-us'); setLocale('en-US');
-    setVariant('a'); setStage('draft'); setMessage('演示已恢复到初始草稿。');
+    setVariant('a'); setStage('draft'); setResetSeed((value) => value + 1);
+    setMessage('演示已恢复到初始草稿。');
+  }
+
+  function invalidateMaster() {
+    if (stage !== 'draft') setStage('draft');
+    setMessage('母版内容已修改，请重新运行事实校验。');
+  }
+
+  function changeChannel(next: string) {
+    setChannel(next);
+    if (stage !== 'draft') setStage('draft');
+    setMessage('渠道已切换，请重新校验并生成该渠道版本。');
+  }
+
+  function changeLocale(next: string) {
+    setLocale(next);
+    if (stage !== 'draft') setStage('draft');
+    setMessage('语言已切换，请重新校验目标市场表达。');
+  }
+
+  function changeVariant(next: string) {
+    setVariant(next);
+    if (stage !== 'draft') setStage('draft');
+    setMessage('内容版本已切换，请重新运行事实校验。');
   }
 
   function primaryAction() {
     if (stage === 'draft') { setStage('checked'); setMessage('事实检查完成：发现 1 项无依据声明。'); return; }
     if (stage === 'checked') { setStage('revised'); setMessage('已生成修订版，并移除无依据承诺。'); return; }
-    if (stage === 'revised') { setStage('review'); setMessage('修订版已送交人工审核。'); return; }
+    if (stage === 'revised') { setStage('review'); setMessage('3 个渠道版本已生成，并送交人工审核。'); return; }
     if (stage === 'review') { setStage('approved'); setMessage('人工审核已确认通过。'); return; }
     if (stage === 'approved') { setStage('exported'); setMessage('演示发布交接包已生成。'); return; }
     resetDemo();
@@ -154,11 +179,11 @@ function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
               <div className="flex items-center gap-2"><span className="truncate text-sm font-semibold">TrailBeam Mini · {campaignBrief.name}</span><span className="hidden rounded-full bg-[#725cff]/18 px-2 py-1 text-[11px] font-semibold text-[#c9bdff] sm:inline">全量合成数据</span></div>
               <p className="mt-1 hidden text-xs text-white/38 sm:block">{campaignBrief.id} · 商品事实版本 R08-V4 · 内容规则 2.4</p>
             </div>
-            <Select value={channel} onValueChange={(value) => value && setChannel(value)}>
+            <Select value={channel} onValueChange={(value) => value && changeChannel(value)}>
               <SelectTrigger aria-label="选择目标渠道" className="h-10 min-w-36 border-white/10 bg-white/[.04] px-3 text-white"><SelectValue /></SelectTrigger>
               <SelectContent className="border border-white/10 bg-[#111722] text-white">{contentChannels.map((item) => <SelectItem key={item.id} value={item.id}>{item.label}</SelectItem>)}</SelectContent>
             </Select>
-            <Select value={locale} onValueChange={(value) => value && setLocale(value)}>
+            <Select value={locale} onValueChange={(value) => value && changeLocale(value)}>
               <SelectTrigger aria-label="选择内容语言" className="h-10 min-w-36 border-white/10 bg-white/[.04] px-3 text-white"><SelectValue /></SelectTrigger>
               <SelectContent className="border border-white/10 bg-[#111722] text-white">{contentLocales.map((item) => <SelectItem key={item.id} value={item.id}>{item.label}</SelectItem>)}</SelectContent>
             </Select>
@@ -168,7 +193,7 @@ function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
         </header>
 
         <main className="mx-auto w-full max-w-[1500px] px-4 pb-28 pt-5 lg:px-7 lg:pb-12 lg:pt-7">
-          <section className="relative overflow-hidden rounded-2xl border border-[#8f7cff]/20 bg-[radial-gradient(circle_at_80%_0%,rgba(130,92,255,.2),transparent_30%),linear-gradient(125deg,rgba(20,75,220,.16),rgba(255,255,255,.025)_55%,rgba(255,126,95,.055))] p-5 lg:p-7">
+          {moduleId !== 'workspace' && <section className="relative overflow-hidden rounded-2xl border border-[#8f7cff]/20 bg-[radial-gradient(circle_at_80%_0%,rgba(130,92,255,.2),transparent_30%),linear-gradient(125deg,rgba(20,75,220,.16),rgba(255,255,255,.025)_55%,rgba(255,126,95,.055))] p-5 lg:p-7">
             <div className="grid gap-7 xl:grid-cols-[1.15fr_.85fr] xl:items-end">
               <div>
                 <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[.14em] text-[#b9aaff]"><Sparkles className="size-4" />AIGC 内容任务<span className="font-normal normal-case tracking-normal text-white/35">· {campaignBrief.id}</span></div>
@@ -179,47 +204,25 @@ function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
                 {[['事实引用', isRevised ? '8 / 8' : '7 / 8'], ['规则检查', hasChecked ? (isRevised ? '全部通过' : '1 项阻断') : '等待运行'], ['当前状态', stageLabel(stage)]].map(([label, value]) => <div key={label} className="min-h-24 rounded-xl border border-white/10 bg-black/15 p-4"><p className="text-[11px] text-white/38">{label}</p><p className="mt-3 text-sm font-semibold leading-5 text-white/78">{value}</p></div>)}
               </div>
             </div>
-          </section>
-
-          {moduleId === 'workspace' && <section className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white/[.035]">
-            <div className="grid grid-cols-5 border-b border-white/10">
-              {pipelineSteps.map((item, index) => <div key={item.id} className={cn('relative min-h-20 border-r border-white/10 p-4 last:border-r-0', index <= activeStep ? 'bg-[#725cff]/[.08]' : '')}>
-                <div className="flex items-center gap-2"><span className={cn('grid size-6 place-items-center rounded-full text-[10px] font-bold', index < activeStep || stage === 'exported' ? 'bg-[#6ad5a7] text-[#07140f]' : index === activeStep ? 'bg-[#725cff] text-white' : 'bg-white/[.06] text-white/35')}>{index < activeStep || stage === 'exported' ? <Check className="size-3.5" /> : index + 1}</span><span className={cn('hidden text-xs font-semibold sm:block', index <= activeStep ? 'text-white/75' : 'text-white/30')}>{item.label}</span></div>
-              </div>)}
-            </div>
-
-            <div className="grid xl:grid-cols-[1.15fr_.85fr]">
-              <div className="min-w-0 border-b border-white/10 p-4 lg:p-6 xl:border-b-0 xl:border-r">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                  <div><p className="text-xs font-semibold uppercase tracking-[.14em] text-[#b9aaff]">Listing 版本对比</p><h2 className="mt-3 text-2xl font-semibold tracking-[-.035em]">Amazon US 商品内容包</h2></div>
-                  <Tabs value={variant} onValueChange={setVariant}><TabsList className="h-10 bg-white/[.055] p-1">{listingVariants.map((item) => <TabsTrigger key={item.id} value={item.id} className="h-8 px-3 text-white/45 data-active:bg-white data-active:text-[#111722]">{item.id.toUpperCase()}</TabsTrigger>)}</TabsList></Tabs>
-                </div>
-                <div className="mt-5 rounded-xl border border-white/10 bg-[#101621] p-5 lg:p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-3"><span className="rounded-full bg-[#725cff]/18 px-3 py-1 text-xs font-semibold text-[#c9bdff]">{activeVariant.label}</span><span className="text-xs text-white/35">字段完整 15 / 15 · 需人工确认</span></div>
-                  <h3 className="mt-5 text-xl font-semibold leading-8 tracking-[-.02em] text-white/88">{isRevised ? activeVariant.revisedTitle : activeVariant.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/42">{activeVariant.angle}</p>
-                  <div className="mt-6 grid gap-3">{activeVariant.bullets.map((bullet, index) => <div key={bullet} className="flex items-start gap-3 rounded-lg bg-white/[.035] p-3 text-sm leading-6 text-white/62"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-white/[.06] font-mono text-[10px] text-[#b9aaff]">{index + 1}</span><span>{bullet}</span></div>)}</div>
-                  <div className="mt-5 flex flex-wrap gap-2">{productFacts.slice(1, 6).map((fact) => <span key={fact.field} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/48"><BadgeCheck className="size-3.5 text-[#6ad5a7]" />{fact.value}</span>)}</div>
-                </div>
-              </div>
-
-              <aside className="min-w-0 p-4 lg:p-6">
-                <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[.14em] text-[#ffb18e]">发布前质检</p><h2 className="mt-3 text-xl font-semibold">事实、品牌、平台和权属</h2></div><span className={cn('rounded-full px-3 py-1 text-xs font-semibold', isRevised ? 'bg-[#6ad5a7]/15 text-[#83e5ba]' : hasChecked ? 'bg-[#ff7c66]/15 text-[#ffad9f]' : 'bg-white/[.06] text-white/45')}>{stageLabel(stage)}</span></div>
-                <div className="mt-5 grid grid-cols-2 gap-2">{reviewChecks.map((check) => <div key={check.label} className="rounded-xl border border-white/10 bg-black/15 p-3"><div className="flex items-center justify-between"><span className="text-xs text-white/42">{check.label}</span><span className={cn('text-xs font-semibold', check.tone === 'good' ? 'text-[#83e5ba]' : isRevised ? 'text-[#83e5ba]' : 'text-[#ffd28e]')}>{isRevised && check.label === '商品事实' ? '25 / 25' : `${check.passed} / ${check.total}`}</span></div></div>)}</div>
-
-                <div className={cn('mt-4 rounded-xl border p-4 transition', !hasChecked ? 'border-white/10 bg-white/[.025]' : isRevised ? 'border-[#6ad5a7]/20 bg-[#6ad5a7]/[.06]' : 'border-[#ff7c66]/25 bg-[#ff7c66]/[.07]')}>
-                  {!hasChecked ? <><ScanSearch className="size-5 text-white/35" /><p className="mt-4 text-sm font-semibold">还没有运行事实检查</p><p className="mt-2 text-xs leading-5 text-white/40">系统会逐句核对商品事实、品牌规范和平台字段。</p></> : isRevised ? <><CheckCircle2 className="size-5 text-[#6ad5a7]" /><p className="mt-4 text-sm font-semibold text-[#9be9c6]">阻断项已修订</p><p className="mt-2 text-xs leading-5 text-white/48">已将 “IPX7 waterproof / 12-hour runtime” 替换为报告支持的 IPX4 与 4–8 小时。</p></> : <><CircleAlert className="size-5 text-[#ff9d8d]" /><p className="mt-4 text-sm font-semibold text-[#ffb0a4]">发现无依据的产品承诺</p><p className="mt-2 text-sm font-medium text-white/78">“IPX7 waterproof / 12-hour runtime”</p><p className="mt-2 text-xs leading-5 text-white/46">有效资料只支持 IPX4 与 4–8 小时。系统已阻止该版本进入发布交接。</p><button onClick={() => chooseModule('facts')} className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#c9bdff]">查看事实来源 <ChevronRight className="size-3.5" /></button></>}
-                </div>
-
-                <Button onClick={primaryAction} className="mt-5 h-12 w-full rounded-xl bg-[linear-gradient(135deg,#725cff,#247dff)] text-sm font-semibold text-white hover:brightness-110">
-                  {stage === 'draft' ? <ScanSearch className="size-4" /> : stage === 'exported' ? <RefreshCcw className="size-4" /> : <ArrowRight className="size-4" />}{actionLabel}
-                </Button>
-                <p className="mt-3 text-center text-[11px] leading-5 text-white/30">所有操作只改变本页演示状态，不会调用真实模型、上传素材或向平台发布。</p>
-              </aside>
-            </div>
           </section>}
 
-          {moduleId === 'workspace' && <TaskQueue />}
+          {moduleId === 'workspace' && <ContentMasterWorkspace
+            key={resetSeed}
+            stage={stage}
+            isRevised={isRevised}
+            hasChecked={hasChecked}
+            activeVariant={activeVariant}
+            channel={channel}
+            locale={locale}
+            variant={variant}
+            message={message}
+            onChannelChange={changeChannel}
+            onLocaleChange={changeLocale}
+            onVariantChange={changeVariant}
+            onPrimaryAction={primaryAction}
+            onMasterChange={invalidateMaster}
+            onOpenModule={chooseModule}
+          />}
 
           {moduleId !== 'workspace' && <ModuleView
             moduleId={moduleId}
@@ -228,24 +231,24 @@ function StudioWorkspace({ initialState }: { initialState: AigcInitialState }) {
             hasChecked={hasChecked}
             activeVariant={activeVariant}
             variant={variant}
-            onVariantChange={setVariant}
+            onVariantChange={changeVariant}
             onPrimaryAction={primaryAction}
             actionLabel={actionLabel}
             locale={locale}
           />}
 
-          <section className="mt-5 grid gap-3 md:grid-cols-4">
+          {moduleId !== 'workspace' && <section className="mt-5 grid gap-3 md:grid-cols-4">
             <MiniProof icon={Database} label="有来源" copy="参数和声明可反查商品资料，不让模型补猜。" />
             <MiniProof icon={Boxes} label="一次输入" copy="同一 Brief 生成文案、图片、视频和多语言版本。" />
             <MiniProof icon={BookOpenCheck} label="能审核" copy="错误声明会被阻断，修订和批准都有记录。" />
             <MiniProof icon={PackageCheck} label="可交付" copy="审核通过后形成字段包、素材清单和版本记录。" />
-          </section>
+          </section>}
           <div className="mt-5 flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[.025] p-4 text-xs leading-5 text-white/42 lg:flex-row lg:items-center lg:justify-between"><p><span className="font-semibold text-white/65">演示声明：</span>商品、品牌、文件、内容和指标均为虚构合成数据；不构成平台、合规或营销建议。</p><Link href="/audit?process=%E5%95%86%E5%93%81%E5%86%85%E5%AE%B9&utm_source=content_factory_demo" className="inline-flex shrink-0 items-center gap-2 font-semibold text-[#b9aaff] hover:text-white">体检我的内容流程 <ArrowRight className="size-3.5" /></Link></div>
           <p aria-live="polite" className="sr-only">{message}</p>
         </main>
 
         <nav className="fixed inset-x-3 bottom-3 z-30 grid grid-cols-4 rounded-2xl border border-white/10 bg-[#0d111b]/96 p-1.5 shadow-2xl backdrop-blur-xl md:hidden" aria-label="内容工厂快捷导航">
-          {([['workspace', LayoutTemplate, '任务'], ['listing', FileText, '生成'], ['review', ClipboardCheck, '审核'], ['versions', Archive, '版本']] as const).map(([id, Icon, label]) => <button key={id} onClick={() => chooseModule(id)} className={cn('flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[11px]', moduleId === id ? 'bg-[#6754f4] text-white' : 'text-white/48')}><Icon className="size-4" />{label}</button>)}
+          {([['workspace', LayoutTemplate, '母版'], ['listing', FileText, '生成'], ['review', ClipboardCheck, '审核'], ['versions', Archive, '版本']] as const).map(([id, Icon, label]) => <button key={id} onClick={() => chooseModule(id)} className={cn('flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[11px]', moduleId === id ? 'bg-[#6754f4] text-white' : 'text-white/48')}><Icon className="size-4" />{label}</button>)}
         </nav>
       </SidebarInset>
       <DataRequirementsSheet open={dataOpen} onOpenChange={setDataOpen} />
@@ -303,10 +306,6 @@ function ListingModule({ activeVariant, variant, onVariantChange, isRevised }: {
       <div className="grid content-start gap-3"><div className="rounded-xl border border-white/10 bg-black/15 p-5"><p className="text-xs font-semibold text-[#b9aaff]">这份内容由什么组成</p>{[['商品事实', 'R08-V4 · 8 项'], ['品牌语气', '清晰、克制、场景化'], ['平台模板', 'Amazon US Listing v6'], ['评论洞察', '1,846 条合成样本'], ['内容规则', 'CLAIM-GATE 2.4']].map(([label, value]) => <div key={label} className="mt-4 flex items-center justify-between gap-3 border-t border-white/10 pt-4 text-xs"><span className="text-white/36">{label}</span><span className="text-right text-white/68">{value}</span></div>)}</div><div className="rounded-xl border border-[#8f7cff]/20 bg-[#725cff]/[.07] p-5"><p className="text-sm font-semibold">版本建议</p><p className="mt-2 text-xs leading-5 text-white/48">B 场景型在合成测试中兼顾点击、转化与利润护栏。结果只用于演示，不替代真实 A/B 测试。</p></div></div>
     </div>
   </section>;
-}
-
-function TaskQueue() {
-  return <section className="mt-5 grid gap-3 lg:grid-cols-3">{contentTasks.map((task) => <article key={task.id} className="rounded-xl border border-white/10 bg-white/[.03] p-4"><div className="flex items-center justify-between gap-3"><span className="font-mono text-[11px] text-[#b9aaff]">{task.id}</span><span className={cn('rounded-full px-2.5 py-1 text-[11px] font-semibold', task.status === '已批准' ? 'bg-[#6ad5a7]/14 text-[#83e5ba]' : task.blocked > 0 ? 'bg-[#ff7c66]/12 text-[#ffad9f]' : 'bg-[#725cff]/15 text-[#c9bdff]')}>{task.status}</span></div><h3 className="mt-4 text-sm font-semibold">{task.title}</h3><div className="mt-4 grid grid-cols-3 border-t border-white/10 pt-3 text-[11px]"><div><span className="block text-white/30">变体</span><span className="mt-1 block text-white/62">{task.variants}</span></div><div><span className="block text-white/30">阻断</span><span className="mt-1 block text-white/62">{task.blocked}</span></div><div><span className="block text-white/30">截止</span><span className="mt-1 block text-white/62">{task.due}</span></div></div></article>)}</section>;
 }
 
 const imageAssets = [
