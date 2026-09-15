@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import {
+  BrandFilmDialog,
+  FeaturedBrandWork,
+} from '@/components/featured-brand-work';
+import {
   Aperture,
   ArrowDown,
   ArrowLeft,
@@ -16,6 +20,7 @@ import {
   ImageIcon,
   Menu,
   PackageCheck,
+  Play,
   ScanLine,
   Sparkles,
   Workflow,
@@ -139,6 +144,7 @@ function saveText(name: string, content: string) {
 
 export function CreativeHome() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [filmOpen, setFilmOpen] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [mode, setMode] = useState('work');
   const [selectedWork, setSelectedWork] = useState(0);
@@ -157,14 +163,11 @@ export function CreativeHome() {
     setMode('process');
     setStep(2);
     window.setTimeout(() => {
-      document
-        .getElementById('agent-studio')
-        ?.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
-            .matches
-            ? 'instant'
-            : 'smooth',
-        });
+      document.getElementById('agent-studio')?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'instant'
+          : 'smooth',
+      });
       document.getElementById('process-tab')?.focus({ preventScroll: true });
     }, 120);
   };
@@ -230,8 +233,8 @@ export function CreativeHome() {
       <section className="studio-hero" aria-labelledby="hero-title">
         <Image
           className="hero-photo"
-          src="/aigc/lantern-campsite-16x9.png"
-          alt="露营灯概念作品：暖色灯光映照木桌，远处是暮色中的湖泊"
+          src="/works/shanxia-yousong/film-poster.jpg"
+          alt="山下有松《慢一点》品牌片精选画面"
           fill
           priority
           sizes="100vw"
@@ -251,10 +254,13 @@ export function CreativeHome() {
             让智能体连接商品出海的每一步。
           </p>
           <div className="hero-actions">
-            <a className="studio-button light" href="#selected-work">
-              探索 AIGC 作品
-              <ArrowUpRight size={18} />
-            </a>
+            <button
+              className="studio-button light"
+              onClick={() => setFilmOpen(true)}
+            >
+              观看品牌片
+              <Play size={17} fill="currentColor" />
+            </button>
             <a
               className="hero-agent-link"
               href="#agent-studio"
@@ -266,9 +272,9 @@ export function CreativeHome() {
           </div>
         </div>
         <div className="hero-project">
-          <span className="hero-project-number">01 / SELECTED CONCEPT</span>
-          <strong>把光，带进自然。</strong>
-          <span>R08 露营灯 · AIGC 概念项目</span>
+          <span className="hero-project-number">01 / SELECTED FILM</span>
+          <strong>山下有松 · 慢一点</strong>
+          <span>品牌片 / 品牌视觉</span>
         </div>
         <a
           href="#selected-work"
@@ -290,53 +296,7 @@ export function CreativeHome() {
           连接创意、内容生产与业务执行。
         </div>
       </section>
-      <section id="selected-work" className="studio-work studio-container">
-        <div className="studio-section-heading">
-          <div>
-            <p className="studio-kicker">01 / SELECTED WORK</p>
-            <h2>好作品，先让人看见。</h2>
-          </div>
-          <p>
-            一个商品，三种表达。
-            <br />
-            探索 R08 露营灯的内容世界。
-          </p>
-        </div>
-        <div className="work-grid">
-          {works.map((work, i) => (
-            <button
-              key={work.image}
-              className={`work-tile ${i === 0 ? 'work-feature' : 'work-small'}`}
-              onClick={() => setLightbox(i)}
-              aria-label={`查看${work.category}：${work.title}`}
-            >
-              <div className="work-image">
-                <Image
-                  src={work.image}
-                  alt={work.alt}
-                  fill
-                  sizes={
-                    i === 0
-                      ? '(min-width: 800px) 60vw, 100vw'
-                      : '(min-width: 800px) 30vw, 100vw'
-                  }
-                />
-                <span className="work-ratio">{work.ratio}</span>
-                <span className="work-open">
-                  <ArrowUpRight size={20} />
-                </span>
-              </div>
-              <div className="work-caption">
-                <h3>{work.title}</h3>
-                <span>{work.category} / AIGC</span>
-              </div>
-            </button>
-          ))}
-        </div>
-        <p className="studio-disclosure">
-          自主概念项目 · 虚构商品与示意素材，展示不同内容形式的创意方向。
-        </p>
-      </section>
+      <FeaturedBrandWork onPlay={() => setFilmOpen(true)} />
       <section id="agent-studio" className="studio-agent-section">
         <div className="studio-container">
           <div className="studio-section-heading">
@@ -349,7 +309,7 @@ export function CreativeHome() {
               </h2>
             </div>
             <p>
-              沿着同一件商品，
+              沿着 R08 露营灯示例，
               <br />
               从创意成果走进 Agent 工作流。
             </p>
@@ -838,6 +798,7 @@ export function CreativeHome() {
           )}
         </DialogContent>
       </Dialog>
+      <BrandFilmDialog open={filmOpen} onOpenChange={setFilmOpen} />
       <Dialog open={briefOpen} onOpenChange={setBriefOpen}>
         <DialogContent className="studio-brief-dialog" showCloseButton={false}>
           <DialogClose className="brief-close" aria-label="关闭项目简报">

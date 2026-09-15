@@ -2117,6 +2117,357 @@
 .studio-home .hero-photo {
   object-fit: contain !important;
 }
+
+/* Featured brand film and original poster artwork. */
+.brand-film-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  overflow: hidden;
+  background: #4e5049;
+  color: #fff;
+  text-align: left;
+  border: 0;
+}
+.brand-film-cover img {
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.brand-film-cover:hover img {
+  transform: scale(1.025);
+}
+.brand-cover-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #121a12a8, transparent 65%);
+}
+.brand-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.brand-play > svg {
+  box-sizing: content-box;
+  padding: 24px;
+  border-radius: 50%;
+  border: 1px solid #ffffff9a;
+  background: #ffffff12;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s;
+}
+.brand-film-cover:hover .brand-play > svg {
+  background: #ffffff30;
+}
+.brand-film-label {
+  position: absolute;
+  left: 40px;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.brand-film-label > span {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+.brand-film-label strong {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+.brand-project-notes {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr auto;
+  align-items: start;
+  gap: 35px;
+  padding: 32px 0 60px;
+}
+.brand-project-notes h3 {
+  font-size: 21px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.brand-project-notes h3 span {
+  color: #827e72;
+}
+.brand-project-notes p {
+  font-size: 15px;
+  color: #66685f;
+  line-height: 1.9;
+}
+.brand-project-notes > div {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.brand-project-notes > div span {
+  border: 1px solid #d2d1c9;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #6a6a60;
+  white-space: nowrap;
+}
+.brand-posters-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 20px;
+  border-top: 1px solid #dcdcd3;
+  padding-top: 24px;
+}
+.brand-posters-heading > span {
+  font-size: 13px;
+  color: #77786d;
+}
+.brand-posters {
+  display: grid;
+  grid-template-columns: 16fr 9fr;
+  gap: 28px;
+  align-items: start;
+}
+.brand-poster {
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+.brand-poster-image {
+  position: relative;
+  background: #dbd9cd;
+  overflow: hidden;
+}
+.brand-poster-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.brand-poster-open {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  width: 39px;
+  height: 39px;
+  background: #f4f3efd9;
+  transition: transform 0.2s;
+}
+.brand-poster:hover .brand-poster-open {
+  transform: rotate(45deg);
+}
+.brand-poster-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding-top: 16px;
+}
+.brand-poster-caption h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.brand-poster-caption > span {
+  color: #7e8076;
+  font-size: 11px;
+}
+.brand-film-dialog,
+.brand-poster-dialog {
+  width: min(1180px, calc(100vw - 40px)) !important;
+  max-width: none !important;
+  max-height: 94svh;
+  overflow-y: auto;
+  padding: 0 !important;
+  gap: 0 !important;
+  border-radius: 6px !important;
+  background: #151815 !important;
+  color: #f4f3ef !important;
+  font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+.brand-dialog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+}
+.brand-dialog-heading [data-slot='dialog-title'] {
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.brand-dialog-heading [data-slot='dialog-description'] {
+  margin-top: 3px;
+  color: #a9ada5;
+  font-size: 12px;
+}
+.brand-dialog-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ffffff35;
+  border-radius: 50%;
+  flex-shrink: 0;
+  color: #f4f3ef;
+  cursor: pointer;
+}
+.brand-film-player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 72svh;
+  background: #000;
+  object-fit: contain;
+}
+.brand-film-direct {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  justify-content: flex-end;
+  font-size: 12px;
+  color: #c2c7be;
+  padding: 14px 24px;
+}
+.brand-video-error {
+  margin: 16px 24px 0;
+  color: #f2d7b4;
+}
+.brand-poster-dialog {
+  width: min(1100px, calc(100vw - 40px)) !important;
+}
+.brand-poster-full {
+  height: 70svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #22261f;
+  padding: 0 20px;
+}
+.brand-poster-full img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain !important;
+}
+.brand-poster-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 12px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+}
+.brand-poster-pager button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.brand-film-dialog :focus-visible,
+.brand-poster-dialog :focus-visible {
+  outline: 2px solid #d8eac1;
+  outline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .brand-project-notes {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-bottom: 38px;
+  }
+  .brand-film-label {
+    left: 22px;
+    bottom: 18px;
+  }
+  .brand-film-label strong {
+    font-size: 27px;
+  }
+  .brand-posters {
+    gap: 18px;
+  }
+  .brand-poster-caption {
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+  }
+}
+@media (max-width: 700px) {
+  .brand-film-cover {
+    aspect-ratio: 16 / 11;
+  }
+  .brand-film-label {
+    left: 18px;
+    bottom: 14px;
+  }
+  .brand-film-label > span {
+    font-size: 8px;
+  }
+  .brand-film-label strong {
+    font-size: 23px;
+  }
+  .brand-play {
+    padding-bottom: 25px;
+  }
+  .brand-play > svg {
+    width: 21px;
+    height: 21px;
+    padding: 17px;
+  }
+  .brand-play > span {
+    font-size: 10px;
+  }
+  .brand-project-notes p {
+    font-size: 14px;
+  }
+  .brand-posters {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .brand-posters-heading {
+    align-items: start;
+    gap: 12px;
+    flex-direction: column;
+  }
+  .brand-poster-caption {
+    flex-direction: row;
+  }
+  .brand-film-dialog,
+  .brand-poster-dialog {
+    width: calc(100vw - 20px) !important;
+  }
+  .brand-dialog-heading {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .brand-dialog-heading [data-slot='dialog-title'] {
+    font-size: 16px;
+  }
+  .brand-poster-full {
+    height: 65svh;
+    padding: 0 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-feature *,
+  .brand-film-dialog *,
+  .brand-poster-dialog * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
 .studio-home .work-small .work-image img,
 .studio-home .explorer-art.art-1 img,
 .studio-home .explorer-art.art-2 img,
