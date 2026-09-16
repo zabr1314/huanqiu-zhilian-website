@@ -2,11 +2,8 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { ModelEditorial } from '@/components/model-editorial';
-import {
-  BrandFilmDialog,
-  FeaturedBrandWork,
-} from '@/components/featured-brand-work';
+import { BrandFilmDialog } from '@/components/featured-brand-work';
+import { SelectedPortfolio } from '@/components/portfolio';
 import {
   Aperture,
   ArrowDown,
@@ -147,7 +144,7 @@ export function CreativeHome() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [filmOpen, setFilmOpen] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const [mode, setMode] = useState('work');
+  const [mode, setMode] = useState('process');
   const [selectedWork, setSelectedWork] = useState(0);
   const [step, setStep] = useState(0);
   const [revised, setRevised] = useState(false);
@@ -185,7 +182,7 @@ export function CreativeHome() {
           </span>
         </a>
         <nav aria-label="主导航">
-          <a href="#selected-work">精选作品</a>
+          <a href="/works">作品</a>
           <a href="#agent-studio" onClick={navigateToProcess}>
             AI Agents
           </a>
@@ -212,8 +209,8 @@ export function CreativeHome() {
             id="studio-mobile-navigation"
             aria-label="手机导航"
           >
-            <a href="#selected-work" onClick={() => setMenuOpen(false)}>
-              精选作品
+            <a href="/works" onClick={() => setMenuOpen(false)}>
+              作品
               <ArrowUpRight size={16} />
             </a>
             <a href="#agent-studio" onClick={navigateToProcess}>
@@ -255,13 +252,10 @@ export function CreativeHome() {
             让智能体连接商品出海的每一步。
           </p>
           <div className="hero-actions">
-            <button
-              className="studio-button light"
-              onClick={() => setFilmOpen(true)}
-            >
-              观看品牌片
-              <Play size={17} fill="currentColor" />
-            </button>
+            <a className="studio-button light" href="#selected-work">
+              看精选作品
+              <ArrowDown size={17} />
+            </a>
             <a
               className="hero-agent-link"
               href="#agent-studio"
@@ -272,11 +266,23 @@ export function CreativeHome() {
             </a>
           </div>
         </div>
-        <div className="hero-project">
+        <button
+          className="hero-project"
+          type="button"
+          onClick={() => setFilmOpen(true)}
+          aria-label="观看山下有松《慢一点》品牌片"
+        >
           <span className="hero-project-number">01 / SELECTED FILM</span>
           <strong>山下有松 · 慢一点</strong>
-          <span>品牌片 / 品牌视觉</span>
-        </div>
+          <span>
+            观看品牌片{' '}
+            <Play
+              size={13}
+              fill="currentColor"
+              style={{ display: 'inline', marginLeft: 6 }}
+            />
+          </span>
+        </button>
         <a
           href="#selected-work"
           className="hero-scroll"
@@ -297,23 +303,22 @@ export function CreativeHome() {
           连接创意、内容生产与业务执行。
         </div>
       </section>
-      <FeaturedBrandWork onPlay={() => setFilmOpen(true)} />
-      <ModelEditorial />
+      <SelectedPortfolio />
       <section id="agent-studio" className="studio-agent-section">
         <div className="studio-container">
           <div className="studio-section-heading">
             <div>
-              <p className="studio-kicker">03 / BEHIND THE WORK</p>
+              <p className="studio-kicker">02 / AI AGENT WORKFLOW</p>
               <h2>
-                看见作品。
+                让内容生产，
                 <br />
-                也看见它如何发生。
+                有清楚的过程。
               </h2>
             </div>
             <p>
               沿着 R08 露营灯示例，
               <br />
-              从创意成果走进 Agent 工作流。
+              看 Agent 如何组织资料、创意与交付。
             </p>
           </div>
           <Tabs
@@ -326,7 +331,7 @@ export function CreativeHome() {
                 <span className="project-monogram">R</span>
                 <div>
                   <strong>R08 / TRAILBEAM</strong>
-                  <span>露营灯内容项目</span>
+                  <span>预设流程演示 · 露营灯内容项目</span>
                 </div>
               </div>
               <TabsList className="explorer-tabs" aria-label="案例展示方式">
@@ -641,7 +646,7 @@ export function CreativeHome() {
       </section>
       <section id="about-studio" className="studio-container studio-about">
         <div>
-          <p className="studio-kicker">04 / OUR PRACTICE</p>
+          <p className="studio-kicker">03 / OUR PRACTICE</p>
           <h2>
             把创意与执行，
             <br />

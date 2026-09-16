@@ -1,6 +1,6 @@
 import { CreativeHome } from '@/components/creative-home';
 import './home.css';
-import './model-editorial.css';
+import './portfolio.css';
 
 export default function Home() {
   return <CreativeHome />;
