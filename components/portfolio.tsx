@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { SelectedWorkCard } from '@/components/selected-work-card';
 import {
   Aperture,
   ArrowLeft,
@@ -100,14 +101,17 @@ function WorkCard({ work, index }: { work: PortfolioWork; index: number }) {
 export function SelectedPortfolio() {
   return (
     <section
-      className="studio-container portfolio-selected"
+      className="studio-container portfolio-selected selected-editorial"
       id="selected-work"
       aria-labelledby="selected-title"
     >
       <div className="studio-section-heading">
         <div>
           <p className="studio-kicker">01 / SELECTED WORK</p>
-          <h2 id="selected-title">让创意，成为看得见的作品。</h2>
+          <h2 id="selected-title">精选作品</h2>
+          <p className="selected-introduction">
+            品牌影像、商品视觉与叙事探索。
+          </p>
         </div>
         <a className="portfolio-text-link" href="/works">
           浏览全部作品 <ArrowUpRight size={18} />
@@ -115,7 +119,7 @@ export function SelectedPortfolio() {
       </div>
       <div className="portfolio-grid">
         {featuredWorks.map((work, index) => (
-          <WorkCard key={work.slug} work={work} index={index} />
+          <SelectedWorkCard key={work.slug} work={work} index={index} />
         ))}
       </div>
     </section>

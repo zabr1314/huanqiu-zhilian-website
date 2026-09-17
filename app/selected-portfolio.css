@@ -1,0 +1,349 @@
+.portfolio-selected.selected-editorial {
+  padding-top: 58px;
+  padding-bottom: 108px;
+}
+.selected-editorial .studio-section-heading {
+  margin-bottom: 38px;
+  gap: 28px;
+}
+.selected-editorial .studio-section-heading h2 {
+  font-size: clamp(32px, 3vw, 44px);
+  margin-top: 14px;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+.selected-editorial .selected-introduction {
+  font-size: 16px;
+  color: #667065;
+  margin-top: 13px;
+}
+.selected-editorial .portfolio-grid {
+  gap: 52px 32px;
+}
+.selected-card {
+  display: block;
+  min-width: 0;
+  position: relative;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #d5d9ce;
+}
+.selected-art {
+  aspect-ratio: 16 / 10;
+  background: #e8e7df;
+  overflow: hidden;
+  position: relative;
+}
+.selected-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.selected-film-image {
+  position: absolute;
+  inset: 0;
+}
+.selected-film-image > img {
+  object-position: 50% 44%;
+}
+.selected-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.selected-preview.is-playing {
+  opacity: 1;
+}
+.selected-film-play {
+  position: absolute;
+  width: 53px;
+  height: 53px;
+  left: 24px;
+  bottom: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ffffff9c;
+  border-radius: 50%;
+  color: white;
+  background: #17231c40;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.2s;
+}
+.selected-preview.is-playing + .selected-film-play {
+  opacity: 0;
+}
+.selected-brand-composition {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr;
+  align-items: center;
+  gap: 22px;
+  padding: 25px;
+  background: #dedfd5;
+}
+.selected-brand-film {
+  min-width: 0;
+}
+.selected-brand-still {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  box-shadow: 0 7px 16px -12px #37443866;
+}
+.selected-brand-still .selected-film-play {
+  width: 40px;
+  height: 40px;
+  bottom: 13px;
+  left: 13px;
+}
+.selected-composition-label {
+  display: block;
+  font-size: 12px;
+  color: #536051;
+  letter-spacing: 0.07em;
+  margin-bottom: 15px;
+}
+.selected-composition-note {
+  display: block;
+  font-size: 12px;
+  color: #6a7262;
+  margin-top: 14px;
+}
+.selected-brand-print {
+  min-width: 0;
+  width: 100%;
+  box-shadow: 0 10px 16px -12px #2e382b99;
+}
+.selected-brand-print img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.selected-fashion-composition {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 10px;
+  padding: 12px;
+  background: #c5b18c;
+}
+.selected-fashion-main,
+.selected-fashion-detail {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+.selected-fashion-main img {
+  object-position: 50% 52%;
+}
+.selected-fashion-detail img {
+  object-position: 50% 59%;
+}
+.selected-fashion-alternate {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.selected-card.is-active .selected-fashion-alternate {
+  opacity: 1;
+}
+.selected-story-composition {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 8px;
+  padding: 10px;
+  background: #343c37;
+}
+.selected-story-composition > div {
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+.selected-story-main {
+  grid-column: 1 / -1;
+}
+.selected-story-composition img {
+  display: block;
+}
+.selected-card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  padding-top: 19px;
+  font-size: 12px;
+  color: #6d7568;
+  letter-spacing: 0.025em;
+}
+.selected-duration {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.selected-preview-label {
+  margin-right: 5px;
+  color: #346346;
+}
+.selected-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+.selected-card-heading h3 {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.45;
+}
+.selected-card-heading > svg {
+  color: #53614e;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.selected-card-description {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px 14px;
+  margin-top: 9px;
+}
+.selected-card-description p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #646e60;
+}
+.selected-client-label {
+  font-size: 12px;
+  color: #53664c;
+  padding: 2px 8px;
+  border: 1px solid #c7d0c0;
+}
+.selected-card-number {
+  display: block;
+  margin-top: 17px;
+  color: #81887c;
+  font-size: 12px;
+  letter-spacing: 0.07em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .selected-card:hover .selected-card-heading > svg {
+    transform: translate(3px, -3px);
+  }
+  .selected-card:hover h3 {
+    color: #28523b;
+  }
+}
+@media (max-width: 1000px) {
+  .selected-brand-composition {
+    gap: 14px;
+    padding: 16px;
+  }
+  .selected-composition-label {
+    margin-bottom: 10px;
+  }
+  .selected-composition-note {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .selected-card-heading h3 {
+    font-size: 22px;
+  }
+  .selected-fashion-composition {
+    padding: 9px;
+    gap: 8px;
+  }
+  .selected-story-composition {
+    padding: 8px;
+    gap: 6px;
+  }
+}
+@media (max-width: 700px) {
+  .portfolio-selected.selected-editorial {
+    padding-top: 34px;
+    padding-bottom: 65px;
+  }
+  .selected-editorial .studio-section-heading {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 26px;
+    gap: 20px;
+  }
+  .selected-editorial .studio-section-heading h2 {
+    margin-top: 10px;
+    font-size: 34px;
+  }
+  .selected-editorial .selected-introduction {
+    font-size: 15px;
+  }
+  .selected-editorial .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .selected-art {
+    aspect-ratio: 16 / 10;
+  }
+  .selected-card {
+    padding-bottom: 24px;
+  }
+  .selected-card-meta {
+    padding-top: 15px;
+  }
+  .selected-card-heading {
+    margin-top: 8px;
+  }
+  .selected-card-heading h3 {
+    font-size: 23px;
+  }
+  .selected-card-description {
+    margin-top: 8px;
+  }
+  .selected-card-number {
+    display: none;
+  }
+  .selected-composition-note {
+    font-size: 12px;
+  }
+}
+@media (max-width: 380px) {
+  .selected-brand-composition {
+    padding: 13px;
+    gap: 11px;
+  }
+  .selected-composition-note {
+    display: none;
+  }
+  .selected-composition-label {
+    letter-spacing: 0;
+  }
+  .selected-card-heading h3 {
+    font-size: 21px;
+  }
+  .selected-film-play {
+    width: 42px;
+    height: 42px;
+    left: 17px;
+    bottom: 17px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .selected-card *,
+  .selected-card *::before,
+  .selected-card *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .selected-card:hover .selected-card-heading > svg {
+    transform: none;
+  }
+}
