@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { BrandFilmDialog } from '@/components/featured-brand-work';
 import { SelectedPortfolio } from '@/components/portfolio';
+import { CreativeCanvasHero } from '@/components/creative-canvas-hero';
 import {
   Aperture,
-  ArrowDown,
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
@@ -228,81 +228,10 @@ export function CreativeHome() {
           </nav>
         )}
       </header>
-      <section className="studio-hero" aria-labelledby="hero-title">
-        <Image
-          className="hero-photo"
-          src="/works/shanxia-yousong/film-poster.jpg"
-          alt="山下有松《慢一点》品牌片精选画面"
-          fill
-          priority
-          sizes="100vw"
-        />
-        <div className="hero-shade" />
-        <div className="hero-copy">
-          <p className="studio-eyebrow">
-            <span /> AIGC × AI AGENTS
-          </p>
-          <h1 id="hero-title">
-            <span>创意，有了新可能。</span>
-            <span>执行，有了新方式。</span>
-          </h1>
-          <p className="hero-description">
-            以 AI 创造品牌内容，
-            <br />
-            让智能体连接商品出海的每一步。
-          </p>
-          <div className="hero-actions">
-            <a className="studio-button light" href="#selected-work">
-              看精选作品
-              <ArrowDown size={17} />
-            </a>
-            <a
-              className="hero-agent-link"
-              href="#agent-studio"
-              onClick={navigateToProcess}
-            >
-              <Workflow size={18} />看 Agent 如何执行
-              <ArrowRight size={17} />
-            </a>
-          </div>
-        </div>
-        <button
-          className="hero-project"
-          type="button"
-          onClick={() => setFilmOpen(true)}
-          aria-label="观看山下有松《慢一点》品牌片"
-        >
-          <span className="hero-project-number">01 / SELECTED FILM</span>
-          <strong>山下有松 · 慢一点</strong>
-          <span>
-            观看品牌片{' '}
-            <Play
-              size={13}
-              fill="currentColor"
-              style={{ display: 'inline', marginLeft: 6 }}
-            />
-          </span>
-        </button>
-        <a
-          href="#selected-work"
-          className="hero-scroll"
-          aria-label="向下查看作品"
-        >
-          <ArrowDown size={18} />
-        </a>
-      </section>
-      <section className="studio-intro studio-container">
-        <p>
-          AIGC 让想象成为作品。
-          <br />
-          <span>AI Agent 让工作持续向前。</span>
-        </p>
-        <div>
-          围绕商品与业务目标，
-          <br />
-          连接创意、内容生产与业务执行。
-        </div>
-      </section>
+      <CreativeCanvasHero
+        onFilmOpen={() => setFilmOpen(true)}
+        onAgent={navigateToProcess}
+      />
       <SelectedPortfolio />
       <section id="agent-studio" className="studio-agent-section">
         <div className="studio-container">
