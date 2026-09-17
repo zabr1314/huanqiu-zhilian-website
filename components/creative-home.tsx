@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { BrandFilmDialog } from '@/components/featured-brand-work';
 import { SelectedPortfolio } from '@/components/portfolio';
 import { CreativeCanvasHero } from '@/components/creative-canvas-hero';
+import { DepartmentTransformation } from '@/components/department-transformation';
 import {
   Aperture,
   ArrowLeft,
@@ -149,6 +150,9 @@ export function CreativeHome() {
   const [step, setStep] = useState(0);
   const [revised, setRevised] = useState(false);
   const [briefOpen, setBriefOpen] = useState(false);
+  const [briefType, setBriefType] = useState<'department' | 'creative'>(
+    'department',
+  );
   const [briefText, setBriefText] = useState('');
   const [briefSaved, setBriefSaved] = useState(false);
   const activeStep = steps[step];
@@ -161,7 +165,7 @@ export function CreativeHome() {
     setMode('process');
     setStep(2);
     window.setTimeout(() => {
-      document.getElementById('agent-studio')?.scrollIntoView({
+      document.getElementById('content-example')?.scrollIntoView({
         behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
           ? 'instant'
           : 'smooth',
@@ -184,7 +188,7 @@ export function CreativeHome() {
         <nav aria-label="主导航">
           <a href="/works">作品</a>
           <a href="#agent-studio" onClick={navigateToProcess}>
-            AI Agents
+            AI 部门改造
           </a>
           <a href="#about-studio">关于我们</a>
         </nav>
@@ -214,7 +218,7 @@ export function CreativeHome() {
               <ArrowUpRight size={16} />
             </a>
             <a href="#agent-studio" onClick={navigateToProcess}>
-              AI Agents
+              AI 部门改造
               <ArrowUpRight size={16} />
             </a>
             <a href="#about-studio" onClick={() => setMenuOpen(false)}>
@@ -233,346 +237,335 @@ export function CreativeHome() {
         onAgent={navigateToProcess}
       />
       <SelectedPortfolio />
-      <section id="agent-studio" className="studio-agent-section">
-        <div className="studio-container">
-          <div className="studio-section-heading">
-            <div>
-              <p className="studio-kicker">02 / AI AGENT WORKFLOW</p>
-              <h2>
-                让内容生产，
-                <br />
-                有清楚的过程。
-              </h2>
+      <DepartmentTransformation
+        onBrief={() => {
+          setBriefType('department');
+          setBriefSaved(false);
+          setBriefOpen(true);
+        }}
+      >
+        <Tabs
+          value={mode}
+          onValueChange={(value) => setMode(String(value))}
+          className="case-explorer"
+        >
+          <div className="explorer-top">
+            <div className="explorer-project">
+              <span className="project-monogram">R</span>
+              <div>
+                <strong>R08 / TRAILBEAM</strong>
+                <span>预设流程演示 · 露营灯内容项目</span>
+              </div>
             </div>
-            <p>
-              沿着 R08 露营灯示例，
-              <br />
-              看 Agent 如何组织资料、创意与交付。
-            </p>
+            <TabsList className="explorer-tabs" aria-label="案例展示方式">
+              <TabsTrigger value="work">
+                <ImageIcon size={16} />
+                看作品
+              </TabsTrigger>
+              <TabsTrigger value="process" id="process-tab">
+                <Workflow size={16} />
+                看执行过程
+              </TabsTrigger>
+            </TabsList>
           </div>
-          <Tabs
-            value={mode}
-            onValueChange={(value) => setMode(String(value))}
-            className="case-explorer"
-          >
-            <div className="explorer-top">
-              <div className="explorer-project">
-                <span className="project-monogram">R</span>
-                <div>
-                  <strong>R08 / TRAILBEAM</strong>
-                  <span>预设流程演示 · 露营灯内容项目</span>
-                </div>
-              </div>
-              <TabsList className="explorer-tabs" aria-label="案例展示方式">
-                <TabsTrigger value="work">
-                  <ImageIcon size={16} />
-                  看作品
-                </TabsTrigger>
-                <TabsTrigger value="process" id="process-tab">
-                  <Workflow size={16} />
-                  看执行过程
-                </TabsTrigger>
-              </TabsList>
-            </div>
-            <TabsContent value="work" className="explorer-work">
-              <button
-                className={`explorer-art art-${selectedWork}`}
-                onClick={() => setLightbox(selectedWork)}
-                aria-label={`放大${works[selectedWork].category}`}
-              >
-                <Image
-                  key={selectedWork}
-                  src={works[selectedWork].image}
-                  alt={works[selectedWork].alt}
-                  fill
-                  sizes="(min-width: 800px) 60vw, 100vw"
-                />
-                <span className="work-open">
-                  <ArrowUpRight size={20} />
-                </span>
-              </button>
-              <div className="explorer-selection">
-                <p className="studio-kicker">CREATIVE OUTPUT</p>
-                <h3>
-                  一个商品，
-                  <br />
-                  不同的内容语境。
-                </h3>
-                <div className="art-options" aria-label="选择作品">
-                  {works.map((work, i) => (
-                    <button
-                      key={work.image}
-                      aria-pressed={selectedWork === i}
-                      onClick={() => setSelectedWork(i)}
-                    >
-                      <span>0{i + 1}</span>
-                      <div>
-                        <strong>{work.category}</strong>
-                        <small>{work.use}</small>
-                      </div>
-                      <ArrowUpRight size={17} />
-                    </button>
-                  ))}
-                </div>
-                <p className="art-note">{works[selectedWork].note}</p>
-                <button
-                  className="text-action"
-                  onClick={() => {
-                    setMode('process');
-                    document.getElementById('process-tab')?.focus();
-                  }}
-                >
-                  看看背后的工作
-                  <ArrowRight size={17} />
-                </button>
-              </div>
-            </TabsContent>
-            <TabsContent value="process" className="explorer-process">
-              <div className="process-sidebar">
-                <p className="process-sidebar-label">任务 / 准备北美上市内容</p>
-                <div className="process-steps" aria-label="任务步骤">
-                  {steps.map((item, i) => {
-                    const Icon = item.icon;
-                    return (
-                      <button
-                        key={item.id}
-                        aria-pressed={step === i}
-                        onClick={() => setStep(i)}
-                      >
-                        <span className="step-index">0{i + 1}</span>
-                        <Icon size={19} />
-                        <span>
-                          <strong>{item.title}</strong>
-                          <small>{item.subtitle}</small>
-                        </span>
-                        <ChevronRight size={16} />
-                      </button>
-                    );
-                  })}
-                </div>
-                <div className="process-label">
-                  <span />
-                  交互演示 · 预设流程
-                </div>
-              </div>
-              <div className="process-panel">
-                <div className="process-panel-heading">
-                  <div>
-                    <span>产物 0{step + 1} / 05</span>
-                    <h3>{activeStep.file}</h3>
-                  </div>
-                  <activeStep.icon size={24} />
-                </div>
-                <p className="process-action">{activeStep.action}</p>
-                {step === 0 && (
-                  <>
-                    <div className="facts-document">
-                      <div className="document-label">
-                        <FileText size={17} />
-                        <span>R08 TRAILBEAM MINI</span>
-                        <small>演示资料</small>
-                      </div>
-                      <dl>
-                        {facts.map(([label, value, source]) => (
-                          <div key={label}>
-                            <dt>{label}</dt>
-                            <dd>{value}</dd>
-                            <span>{source}</span>
-                          </div>
-                        ))}
-                      </dl>
+          <TabsContent value="work" className="explorer-work">
+            <button
+              className={`explorer-art art-${selectedWork}`}
+              onClick={() => setLightbox(selectedWork)}
+              aria-label={`放大${works[selectedWork].category}`}
+            >
+              <Image
+                key={selectedWork}
+                src={works[selectedWork].image}
+                alt={works[selectedWork].alt}
+                fill
+                sizes="(min-width: 800px) 60vw, 100vw"
+              />
+              <span className="work-open">
+                <ArrowUpRight size={20} />
+              </span>
+            </button>
+            <div className="explorer-selection">
+              <p className="studio-kicker">CREATIVE OUTPUT</p>
+              <h3>
+                一个商品，
+                <br />
+                不同的内容语境。
+              </h3>
+              <div className="art-options" aria-label="选择作品">
+                {works.map((work, i) => (
+                  <button
+                    key={work.image}
+                    aria-pressed={selectedWork === i}
+                    onClick={() => setSelectedWork(i)}
+                  >
+                    <span>0{i + 1}</span>
+                    <div>
+                      <strong>{work.category}</strong>
+                      <small>{work.use}</small>
                     </div>
-                    <p className="panel-footnote">
-                      此处的规格与来源名称均为虚构示例，不代表真实检测或认证。
-                    </p>
-                  </>
-                )}
-                {step === 1 && (
-                  <div className="brief-document">
-                    <span className="document-overline">
-                      CREATIVE BRIEF / 北美秋季露营季
-                    </span>
-                    <h4>把光，带进自然。</h4>
-                    <p>让一盏便携灯，成为周末出走时的陪伴。</p>
+                    <ArrowUpRight size={17} />
+                  </button>
+                ))}
+              </div>
+              <p className="art-note">{works[selectedWork].note}</p>
+              <button
+                className="text-action"
+                onClick={() => {
+                  setMode('process');
+                  document.getElementById('process-tab')?.focus();
+                }}
+              >
+                看看背后的工作
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          </TabsContent>
+          <TabsContent value="process" className="explorer-process">
+            <div className="process-sidebar">
+              <p className="process-sidebar-label">任务 / 准备北美上市内容</p>
+              <div className="process-steps" aria-label="任务步骤">
+                {steps.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      aria-pressed={step === i}
+                      onClick={() => setStep(i)}
+                    >
+                      <span className="step-index">0{i + 1}</span>
+                      <Icon size={19} />
+                      <span>
+                        <strong>{item.title}</strong>
+                        <small>{item.subtitle}</small>
+                      </span>
+                      <ChevronRight size={16} />
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="process-label">
+                <span />
+                交互演示 · 预设流程
+              </div>
+            </div>
+            <div className="process-panel">
+              <div className="process-panel-heading">
+                <div>
+                  <span>产物 0{step + 1} / 05</span>
+                  <h3>{activeStep.file}</h3>
+                </div>
+                <activeStep.icon size={24} />
+              </div>
+              <p className="process-action">{activeStep.action}</p>
+              {step === 0 && (
+                <>
+                  <div className="facts-document">
+                    <div className="document-label">
+                      <FileText size={17} />
+                      <span>R08 TRAILBEAM MINI</span>
+                      <small>演示资料</small>
+                    </div>
                     <dl>
-                      <div>
-                        <dt>目标人群</dt>
-                        <dd>周末露营与房车旅行人群</dd>
-                      </div>
-                      <div>
-                        <dt>表达重点</dt>
-                        <dd>轻量便携 · 灵活固定 · 稳定照明</dd>
-                      </div>
-                      <div>
-                        <dt>视觉方向</dt>
-                        <dd>暮色中的冷暖对比，真实可感的材质。</dd>
-                      </div>
-                      <div>
-                        <dt>计划产物</dt>
-                        <dd>场景图、商品图、社交创意与短视频分镜。</dd>
-                      </div>
+                      {facts.map(([label, value, source]) => (
+                        <div key={label}>
+                          <dt>{label}</dt>
+                          <dd>{value}</dd>
+                          <span>{source}</span>
+                        </div>
+                      ))}
                     </dl>
                   </div>
-                )}
-                {step === 2 && (
-                  <>
-                    <div className="process-assets">
-                      {works.map((work, i) => (
-                        <button
-                          key={work.image}
-                          onClick={() => setLightbox(i)}
-                          aria-label={`查看${work.category}`}
-                        >
-                          <div>
-                            <Image
-                              src={work.image}
-                              alt={work.alt}
-                              fill
-                              sizes="200px"
-                            />
-                          </div>
-                          <span>
-                            {work.category}
-                            <ArrowUpRight size={14} />
-                          </span>
-                        </button>
-                      ))}
+                  <p className="panel-footnote">
+                    此处的规格与来源名称均为虚构示例，不代表真实检测或认证。
+                  </p>
+                </>
+              )}
+              {step === 1 && (
+                <div className="brief-document">
+                  <span className="document-overline">
+                    CREATIVE BRIEF / 北美秋季露营季
+                  </span>
+                  <h4>把光，带进自然。</h4>
+                  <p>让一盏便携灯，成为周末出走时的陪伴。</p>
+                  <dl>
+                    <div>
+                      <dt>目标人群</dt>
+                      <dd>周末露营与房车旅行人群</dd>
                     </div>
-                    <div className="shot-heading">
-                      <strong>15 秒短视频分镜</strong>
-                      <span>文字方案 · 尚未制作成片</span>
+                    <div>
+                      <dt>表达重点</dt>
+                      <dd>轻量便携 · 灵活固定 · 稳定照明</dd>
                     </div>
-                    <ol className="shot-list">
-                      {shotList.map(([time, title, desc]) => (
-                        <li key={time}>
-                          <time>{time}</time>
-                          <strong>{title}</strong>
-                          <span>{desc}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </>
-                )}
-                {step === 3 && (
-                  <div className="review-document">
-                    <div
-                      className="review-switch"
-                      role="group"
-                      aria-label="选择文案版本"
-                    >
+                    <div>
+                      <dt>视觉方向</dt>
+                      <dd>暮色中的冷暖对比，真实可感的材质。</dd>
+                    </div>
+                    <div>
+                      <dt>计划产物</dt>
+                      <dd>场景图、商品图、社交创意与短视频分镜。</dd>
+                    </div>
+                  </dl>
+                </div>
+              )}
+              {step === 2 && (
+                <>
+                  <div className="process-assets">
+                    {works.map((work, i) => (
                       <button
-                        aria-pressed={!revised}
-                        onClick={() => setRevised(false)}
+                        key={work.image}
+                        onClick={() => setLightbox(i)}
+                        aria-label={`查看${work.category}`}
                       >
-                        查看原稿
+                        <div>
+                          <Image
+                            src={work.image}
+                            alt={work.alt}
+                            fill
+                            sizes="200px"
+                          />
+                        </div>
+                        <span>
+                          {work.category}
+                          <ArrowUpRight size={14} />
+                        </span>
                       </button>
-                      <button
-                        aria-pressed={revised}
-                        onClick={() => setRevised(true)}
-                      >
-                        查看修订稿
-                      </button>
-                    </div>
-                    <div
-                      className={`review-result ${revised ? 'is-revised' : ''}`}
-                    >
-                      <span className="review-status">
-                        {revised
-                          ? '示例问题已修订 · 待人工审核'
-                          : '发现 2 处资料不支持的声明'}
-                      </span>
-                      <h4>TrailBeam Mini Camping Lantern</h4>
-                      <p>
-                        {revised
-                          ? 'IPX4 Water-Resistant · 4–8 Hour Runtime'
-                          : 'IPX7 Waterproof · 12-Hour Runtime'}
-                      </p>
-                    </div>
-                    <div className="review-comparison">
-                      <div>
-                        <span>防护等级</span>
-                        <s>IPX7</s>
-                        <ArrowRight size={15} />
-                        <strong>IPX4</strong>
-                      </div>
-                      <div>
-                        <span>续航时间</span>
-                        <s>12 小时</s>
-                        <ArrowRight size={15} />
-                        <strong>4–8 小时</strong>
-                      </div>
-                    </div>
-                    <p className="panel-footnote">
-                      此处切换预设版本，演示核对逻辑。正式发布前需确认商品资料与最终文案。
-                    </p>
+                    ))}
                   </div>
-                )}
-                {step === 4 && (
-                  <div className="handoff-document">
-                    <div className="handoff-summary">
-                      <PackageCheck size={28} />
-                      <div>
-                        <strong>R08 内容包样例</strong>
-                        <span>整理完成，待最终人工审核</span>
-                      </div>
-                    </div>
-                    <ul>
-                      {[
-                        '商品资料卡与创意简报',
-                        '3 张概念图片的资源链接',
-                        '修订后的英文商品文案',
-                        '15 秒分镜与审核说明',
-                      ].map((item) => (
-                        <li key={item}>
-                          <Check size={17} />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <a
-                      className="studio-button blue"
-                      href="/downloads/r08-content-example.zip"
-                      download
-                    >
-                      下载内容包样例
-                      <Download size={17} />
-                    </a>
-                    <p className="panel-footnote">
-                      包含说明文档与 3 张概念图片；未接入店铺或发布渠道。
-                    </p>
+                  <div className="shot-heading">
+                    <strong>15 秒短视频分镜</strong>
+                    <span>文字方案 · 尚未制作成片</span>
                   </div>
-                )}
-                <div className="process-pagination">
-                  <span>0{step + 1} / 05</span>
-                  <div>
+                  <ol className="shot-list">
+                    {shotList.map(([time, title, desc]) => (
+                      <li key={time}>
+                        <time>{time}</time>
+                        <strong>{title}</strong>
+                        <span>{desc}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </>
+              )}
+              {step === 3 && (
+                <div className="review-document">
+                  <div
+                    className="review-switch"
+                    role="group"
+                    aria-label="选择文案版本"
+                  >
                     <button
-                      aria-label="上一步"
-                      disabled={step === 0}
-                      onClick={() => setStep(step - 1)}
+                      aria-pressed={!revised}
+                      onClick={() => setRevised(false)}
                     >
-                      <ArrowLeft size={17} />
+                      查看原稿
                     </button>
                     <button
-                      disabled={step === 4}
-                      onClick={() => setStep(step + 1)}
+                      aria-pressed={revised}
+                      onClick={() => setRevised(true)}
                     >
-                      {step === 4 ? '已到最后一步' : '下一步'}
-                      <ArrowRight size={17} />
+                      查看修订稿
                     </button>
                   </div>
+                  <div
+                    className={`review-result ${revised ? 'is-revised' : ''}`}
+                  >
+                    <span className="review-status">
+                      {revised
+                        ? '示例问题已修订 · 待人工审核'
+                        : '发现 2 处资料不支持的声明'}
+                    </span>
+                    <h4>TrailBeam Mini Camping Lantern</h4>
+                    <p>
+                      {revised
+                        ? 'IPX4 Water-Resistant · 4–8 Hour Runtime'
+                        : 'IPX7 Waterproof · 12-Hour Runtime'}
+                    </p>
+                  </div>
+                  <div className="review-comparison">
+                    <div>
+                      <span>防护等级</span>
+                      <s>IPX7</s>
+                      <ArrowRight size={15} />
+                      <strong>IPX4</strong>
+                    </div>
+                    <div>
+                      <span>续航时间</span>
+                      <s>12 小时</s>
+                      <ArrowRight size={15} />
+                      <strong>4–8 小时</strong>
+                    </div>
+                  </div>
+                  <p className="panel-footnote">
+                    此处切换预设版本，演示核对逻辑。正式发布前需确认商品资料与最终文案。
+                  </p>
+                </div>
+              )}
+              {step === 4 && (
+                <div className="handoff-document">
+                  <div className="handoff-summary">
+                    <PackageCheck size={28} />
+                    <div>
+                      <strong>R08 内容包样例</strong>
+                      <span>整理完成，待最终人工审核</span>
+                    </div>
+                  </div>
+                  <ul>
+                    {[
+                      '商品资料卡与创意简报',
+                      '3 张概念图片的资源链接',
+                      '修订后的英文商品文案',
+                      '15 秒分镜与审核说明',
+                    ].map((item) => (
+                      <li key={item}>
+                        <Check size={17} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    className="studio-button blue"
+                    href="/downloads/r08-content-example.zip"
+                    download
+                  >
+                    下载内容包样例
+                    <Download size={17} />
+                  </a>
+                  <p className="panel-footnote">
+                    包含说明文档与 3 张概念图片；未接入店铺或发布渠道。
+                  </p>
+                </div>
+              )}
+              <div className="process-pagination">
+                <span>0{step + 1} / 05</span>
+                <div>
+                  <button
+                    aria-label="上一步"
+                    disabled={step === 0}
+                    onClick={() => setStep(step - 1)}
+                  >
+                    <ArrowLeft size={17} />
+                  </button>
+                  <button
+                    disabled={step === 4}
+                    onClick={() => setStep(step + 1)}
+                  >
+                    {step === 4 ? '已到最后一步' : '下一步'}
+                    <ArrowRight size={17} />
+                  </button>
                 </div>
               </div>
-            </TabsContent>
-            <div className="explorer-bottom">
-              <span>概念案例 · 预生成素材与流程演示</span>
-              <a href="/demo/content-factory">
-                打开完整工作台
-                <ArrowUpRight size={15} />
-              </a>
             </div>
-          </Tabs>
-        </div>
-      </section>
+          </TabsContent>
+          <div className="explorer-bottom">
+            <span>概念案例 · 预生成素材与流程演示</span>
+            <a href="/demo/content-factory">
+              打开完整工作台
+              <ArrowUpRight size={15} />
+            </a>
+          </div>
+        </Tabs>
+      </DepartmentTransformation>
       <section id="about-studio" className="studio-container studio-about">
         <div>
           <p className="studio-kicker">03 / OUR PRACTICE</p>
@@ -582,11 +575,12 @@ export function CreativeHome() {
             放在同一张工作台。
           </h2>
           <p className="about-copy">
-            我们关注 AIGC 影像创作与 AI Agent
-            工作流，探索它们在品牌表达与跨境商业中的应用。
+            我们以 AIGC 为品牌创作影像与商品视觉， 以 AI Agent
+            帮助跨境电商部门改造日常工作。
             <br />
             <br />
-            从一件商品、一项具体任务开始，把想法变成可查看、可修改、可交付的成果。
+            从一件作品的表达，到一个部门的协作，
+            把创意能力与系统落地带进你的业务。
           </p>
         </div>
         <div className="practice-list">
@@ -601,16 +595,8 @@ export function CreativeHome() {
           <a href="#agent-studio" onClick={navigateToProcess}>
             <span>02</span>
             <div>
-              <h3>AI Agent 系统</h3>
-              <p>资料理解、任务组织与交付协作。</p>
-            </div>
-            <ArrowUpRight size={21} />
-          </a>
-          <a href="/demo/commerce">
-            <span>03</span>
-            <div>
-              <h3>跨境商业场景</h3>
-              <p>探索内容与经营判断如何连接。</p>
+              <h3>跨境电商部门 AI 改造</h3>
+              <p>流程梳理、Agent 搭建与团队落地。</p>
             </div>
             <ArrowUpRight size={21} />
           </a>
@@ -624,27 +610,27 @@ export function CreativeHome() {
               <h2>
                 从你的下一件作品，
                 <br />
-                或下一项工作开始。
+                或一次部门改造开始。
               </h2>
             </div>
             <div>
               <p>
-                一件商品，一个市场，
+                说说你想创作的内容，
                 <br />
-                一个你希望解决的问题。
+                或团队最想改变的工作。
               </p>
               <button
                 className="studio-button light"
                 onClick={() => setBriefOpen(true)}
               >
-                准备项目简报
+                梳理合作需求
                 <ArrowUpRight size={18} />
               </button>
             </div>
           </div>
           <div className="studio-footer-bottom">
             <span>© 2026 天才教授</span>
-            <span>AIGC 创意 · AI Agent 系统</span>
+            <span>AIGC 创意 · 跨境电商部门 AI 改造</span>
             <div>
               <a href="/demo">
                 更多交互样板
@@ -745,9 +731,42 @@ export function CreativeHome() {
             先把想法，写清楚。
           </DialogTitle>
           <DialogDescription>
-            写下商品、目标市场和期望产物。下载简报，用于后续项目沟通。
+            {briefType === 'department'
+              ? '写下团队分工、现有工具和最想改善的流程。下载需求简报，用于后续沟通。'
+              : '写下品牌、商品、目标市场和期望作品。下载需求简报，用于后续沟通。'}
           </DialogDescription>
-          <label htmlFor="project-brief">你的项目</label>
+          <fieldset className="brief-service-options">
+            <legend>你想聊哪一类合作？</legend>
+            <label>
+              <input
+                type="radio"
+                name="brief-service"
+                value="department"
+                checked={briefType === 'department'}
+                onChange={() => {
+                  setBriefType('department');
+                  setBriefSaved(false);
+                }}
+              />
+              部门 AI 改造
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="brief-service"
+                value="creative"
+                checked={briefType === 'creative'}
+                onChange={() => {
+                  setBriefType('creative');
+                  setBriefSaved(false);
+                }}
+              />
+              AIGC 创意
+            </label>
+          </fieldset>
+          <label htmlFor="project-brief">
+            {briefType === 'department' ? '你的团队与流程' : '你的创意项目'}
+          </label>
           <textarea
             id="project-brief"
             value={briefText}
@@ -756,7 +775,11 @@ export function CreativeHome() {
               setBriefText(event.target.value);
               setBriefSaved(false);
             }}
-            placeholder="例如：我们有一款露营产品，希望面向美国市场制作场景图，并搭建多语言内容审核流程。"
+            placeholder={
+              briefType === 'department'
+                ? '例如：我们的跨境团队分为运营、设计和客服。目前商品信息需要反复同步，客服反馈也很难传回选品端。希望先梳理这些交接，再搭建适合团队的 Agent 工作流。'
+                : '例如：我们有一个包袋品牌，希望制作一支品牌短片，以及用于海外市场的模特图与商品视觉。'
+            }
             rows={6}
           />
           <div className="brief-privacy">
@@ -768,8 +791,10 @@ export function CreativeHome() {
             disabled={!briefText.trim()}
             onClick={() => {
               saveText(
-                '项目合作简报.md',
-                `# 项目合作简报\n\n${briefText.trim()}\n\n## 沟通时可补充\n- 商品与现有资料\n- 目标人群和市场\n- 期望交付物\n- 时间与预算范围\n`,
+                briefType === 'department'
+                  ? '部门AI改造需求简报.md'
+                  : 'AIGC创意需求简报.md',
+                `# ${briefType === 'department' ? '部门 AI 改造需求简报' : 'AIGC 创意需求简报'}\n\n${briefText.trim()}\n\n## 沟通时可补充\n${briefType === 'department' ? '- 团队岗位与分工\n- 业务平台与现有工具\n- 重复任务和交接问题\n- 希望先改造的流程\n- 成功标准、时间与预算范围' : '- 品牌、商品与现有资料\n- 目标人群和市场\n- 期望作品与交付形式\n- 时间与预算范围'}\n`,
               );
               setBriefSaved(true);
             }}

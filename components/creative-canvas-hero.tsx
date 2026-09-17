@@ -15,32 +15,32 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const workflow = [
   {
-    title: '理解资料',
-    label: 'INPUT',
+    title: '业务任务',
+    label: 'BUSINESS',
     icon: FileText,
-    description: '先整理商品资料与需求，让每项表达都有依据。',
-    lines: ['商品信息', '品牌要求', '目标市场'],
+    description: '从真实岗位与业务目标出发，梳理部门每天要完成的任务。',
+    lines: ['市场与商品', '运营与营销', '客服与复盘'],
   },
   {
-    title: '组织创意',
-    label: 'CREATE',
+    title: 'Agent 执行',
+    label: 'AGENTS',
     icon: Layers3,
-    description: '把需求组织成创意简报，连接图像、文案与分镜。',
-    lines: ['视觉方向', '内容草稿', '视频分镜'],
+    description: '让 Agent 处理资料、产出草稿、跟进任务，并把结果交到下一环。',
+    lines: ['知识与工具', '任务与产物', '流程衔接'],
   },
   {
-    title: '核对修订',
-    label: 'REVIEW',
+    title: '团队决策',
+    label: 'PEOPLE',
     icon: ScanLine,
-    description: '对照原始资料检查内容，将需要修改的地方交给团队确认。',
-    lines: ['事实核对', '表达修订', '人工确认'],
+    description: '团队负责经营判断、质量把关与关键动作，明确每一步的决策人。',
+    lines: ['方向与预算', '质量与审核', '异常处理'],
   },
   {
-    title: '整理交付',
-    label: 'DELIVER',
+    title: '协作记录',
+    label: 'FEEDBACK',
     icon: Check,
-    description: '汇总确认后的内容、素材与版本，形成清楚的交付清单。',
-    lines: ['素材归档', '版本记录', '交付清单'],
+    description: '记录任务、结果与反馈，让部门的经验进入下一轮工作。',
+    lines: ['任务交接', '经营反馈', '持续改进'],
   },
 ];
 
@@ -88,8 +88,8 @@ export function CreativeCanvasHero({
             让智能<span className="canvas-word second">协作</span>。
           </h1>
           <p className="canvas-hero-description">
-            以影像表达品牌，
-            <br />以 AI 工作流连接创意与执行。
+            以 AIGC 创作品牌内容，
+            <br />以 AI Agent 改造跨境电商部门。
           </p>
           <div className="canvas-hero-actions">
             <a className="canvas-primary" href="#selected-work">
@@ -100,13 +100,13 @@ export function CreativeCanvasHero({
               href="#agent-studio"
               onClick={onAgent}
             >
-              体验 AI Agent <ArrowUpRight size={17} />
+              了解部门改造 <ArrowUpRight size={17} />
             </a>
           </div>
           <div className="canvas-capabilities">
             <span>品牌影像</span>
             <span>AI 模特与商品视觉</span>
-            <span>智能体工作流</span>
+            <span>跨境电商部门 AI 化</span>
           </div>
         </div>
 
@@ -217,7 +217,9 @@ export function CreativeCanvasHero({
               value="workflow"
               className="field-panel field-workflow"
             >
-              <span className="field-flow-title">从一个想法，到有序交付。</span>
+              <span className="field-flow-title">
+                让人、Agent 与业务连在一起。
+              </span>
               <svg
                 className="field-connections"
                 viewBox="0 0 600 440"
@@ -263,7 +265,7 @@ export function CreativeCanvasHero({
             ) : (
               <>
                 <p>{workflow[stage].description}</p>
-                <span>工作流示意 · 点击步骤了解</span>
+                <span>部门协作示意 · 点击环节了解</span>
               </>
             )}
           </div>
