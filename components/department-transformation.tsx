@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Fragment,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -17,6 +16,7 @@ import {
   Layers3,
   ScanLine,
   ShoppingBag,
+  X,
 } from 'lucide-react';
 
 const departments = [
@@ -197,18 +197,75 @@ const paths = [
   'M522 525 H497 Q478 525 478 506 V352 Q478 334 459 334 H456',
 ];
 
+// Phone coordinates follow the portrait composition, without shrinking the labels.
+const portraitPaths = [
+  'M151 73 H166 Q178 73 178 86 V210 Q178 226 160 226 H126',
+  'M112 249 H126',
+  'M218 96 H201 Q190 96 190 112 V211 Q190 226 205 226 H234',
+  'M248 264 H234',
+  'M94 390 V355 Q94 338 111 338 H146 Q160 338 160 320 V295',
+  'M279 409 V366 Q279 348 263 348 H217 Q202 348 202 331 V295',
+];
+
+function DepartmentConnections({
+  selected,
+  portrait = false,
+}: {
+  selected: number | null;
+  portrait?: boolean;
+}) {
+  const connections = portrait ? portraitPaths : paths;
+  return (
+    <svg
+      className={`department-connections department-connections-${portrait ? 'portrait' : 'wide'}`}
+      viewBox={portrait ? '0 0 360 520' : '0 0 800 620'}
+      preserveAspectRatio="none"
+      fill="none"
+      aria-hidden="true"
+    >
+      <g className="department-traces">
+        {connections.map((d, index) => (
+          <path
+            key={d}
+            d={d}
+            pathLength="1"
+            className={selected === index ? 'is-selected' : undefined}
+          />
+        ))}
+      </g>
+      <g className="department-signals">
+        {connections.map((d, index) => (
+          <path
+            key={d}
+            d={d}
+            pathLength="1"
+            style={
+              { '--signal-delay': `${0.7 + index * 0.08}s` } as CSSProperties
+            }
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 export function DepartmentTransformation({ onBrief }: { onBrief: () => void }) {
   const art = useRef<HTMLDivElement>(null);
+  const mobileDetail = useRef<HTMLDivElement>(null);
+  const revealDetail = useRef(false);
   const [assembled, setAssembled] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [revealRevision, setRevealRevision] = useState(0);
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const clearHover = () => {
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
     hoverTimer.current = null;
   };
-  const select = (index: number | null) => {
+  const select = (index: number | null, reveal = false) => {
     clearHover();
+    revealDetail.current = reveal;
+    if (reveal) setRevealRevision((revision) => revision + 1);
     setSelected(index);
     setHasInteracted(true);
   };
@@ -236,29 +293,31 @@ export function DepartmentTransformation({ onBrief }: { onBrief: () => void }) {
     },
     [],
   );
-  const mobileDetailRow =
-    selected === null ? 3 : selected < 2 ? 2 : selected < 4 ? 4 : 5;
-  const mobileRow = (row: number) =>
-    row + (hasInteracted && row >= mobileDetailRow ? 1 : 0);
   const activeItem = selected === null ? overview : departments[selected];
   useLayoutEffect(() => {
-    if (!hasInteracted || !window.matchMedia('(max-width: 1000px)').matches)
+    if (
+      !hasInteracted ||
+      !revealDetail.current ||
+      !window.matchMedia('(max-width: 1000px)').matches
+    )
       return;
+    revealDetail.current = false;
     const frame = requestAnimationFrame(() => {
-      const node = art.current?.querySelector<HTMLElement>(
-        selected === null ? '.department-core' : `.department-node-${selected}`,
-      );
-      if (!node) return;
-      const rect = node.getBoundingClientRect();
-      if (rect.top < 24 || rect.bottom > window.innerHeight) {
+      const detail = mobileDetail.current;
+      if (!detail) return;
+      const rect = detail.getBoundingClientRect();
+      if (rect.top > window.innerHeight - 180) {
         window.scrollTo({
-          top: window.scrollY + rect.top - 24,
-          behavior: 'instant',
+          top: window.scrollY + rect.top - window.innerHeight * 0.45,
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches
+            ? 'instant'
+            : 'smooth',
         });
       }
     });
     return () => cancelAnimationFrame(frame);
-  }, [hasInteracted, selected]);
+  }, [hasInteracted, selected, revealRevision]);
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let observer: IntersectionObserver | undefined;
@@ -347,54 +406,18 @@ export function DepartmentTransformation({ onBrief }: { onBrief: () => void }) {
           >
             <div className="department-art-heading" aria-hidden="true">
               <span>ONE TEAM. CONNECTED.</span>
-              <span className="department-explore-hint">
-                选择模块，了解工作方式
-              </span>
+              <span className="department-explore-hint">选择模块查看介绍</span>
             </div>
             <div
               ref={art}
+              tabIndex={-1}
               className={`department-art${assembled ? ' is-assembled' : ''}`}
             >
               <div className="department-plane">
-                <svg
-                  className="department-connections"
-                  viewBox="0 0 800 620"
-                  preserveAspectRatio="none"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <g className="department-traces">
-                    {paths.map((d) => (
-                      <path
-                        key={d}
-                        d={d}
-                        pathLength="1"
-                        className={
-                          selected === paths.indexOf(d)
-                            ? 'is-selected'
-                            : undefined
-                        }
-                      />
-                    ))}
-                  </g>
-                  <g className="department-signals">
-                    {paths.map((d, index) => (
-                      <path
-                        key={d}
-                        d={d}
-                        pathLength="1"
-                        style={
-                          {
-                            '--signal-delay': `${0.7 + index * 0.08}s`,
-                          } as CSSProperties
-                        }
-                      />
-                    ))}
-                  </g>
-                </svg>
+                <DepartmentConnections selected={selected} />
+                <DepartmentConnections selected={selected} portrait />
                 <div
                   className={`department-core${selected === null ? ' is-selected' : ''}`}
-                  style={{ '--mobile-core-row': mobileRow(2) } as CSSProperties}
                 >
                   <button
                     type="button"
@@ -412,7 +435,7 @@ export function DepartmentTransformation({ onBrief }: { onBrief: () => void }) {
                       if (e.currentTarget.matches(':focus-visible'))
                         select(null);
                     }}
-                    onClick={() => select(null)}
+                    onClick={() => select(null, true)}
                   />
                   <span className="department-core-label">HUMAN × AI</span>
                   <div className="department-core-mark" aria-hidden="true">
@@ -431,98 +454,71 @@ export function DepartmentTransformation({ onBrief }: { onBrief: () => void }) {
                   {departments.map((item, index) => {
                     const Icon = item.icon;
                     return (
-                      <Fragment key={item.en}>
-                        <li
-                          className={`department-node department-node-${index}${selected === index ? ' is-selected' : ''}`}
-                          style={
-                            {
-                              '--node-x': item.x,
-                              '--node-y': item.y,
-                              '--node-r': item.rotation,
-                              '--node-delay': `${index * 0.065}s`,
-                              '--mobile-node-row': mobileRow(
-                                index < 2 ? 1 : index < 4 ? 3 : 4,
-                              ),
-                            } as CSSProperties
+                      <li
+                        key={item.en}
+                        className={`department-node department-node-${index}${selected === index ? ' is-selected' : ''}`}
+                        style={
+                          {
+                            '--node-x': item.x,
+                            '--node-y': item.y,
+                            '--node-r': item.rotation,
+                            '--node-delay': `${index * 0.065}s`,
+                          } as CSSProperties
+                        }
+                      >
+                        <button
+                          type="button"
+                          className="department-node-trigger"
+                          aria-label={`了解${item.name}部门改造`}
+                          aria-pressed={selected === index}
+                          aria-controls={
+                            hasInteracted
+                              ? 'department-detail-desktop department-detail-mobile'
+                              : 'department-detail-desktop'
                           }
-                        >
-                          <button
-                            type="button"
-                            className="department-node-trigger"
-                            aria-label={`了解${item.name}部门改造`}
-                            aria-pressed={selected === index}
-                            aria-controls={
-                              hasInteracted
-                                ? 'department-detail-desktop department-detail-mobile'
-                                : 'department-detail-desktop'
-                            }
-                            onPointerEnter={(e) =>
-                              preview(index, e.pointerType)
-                            }
-                            onPointerLeave={clearHover}
-                            onFocus={(e) => {
-                              if (e.currentTarget.matches(':focus-visible'))
-                                select(index);
-                            }}
-                            onClick={() => select(index)}
-                          />
-                          <div className="department-node-top">
-                            <span>
-                              0{index + 1} / {item.en}
+                          onPointerEnter={(e) => preview(index, e.pointerType)}
+                          onPointerLeave={clearHover}
+                          onFocus={(e) => {
+                            if (e.currentTarget.matches(':focus-visible'))
+                              select(index);
+                          }}
+                          onClick={() => select(index, true)}
+                        />
+                        <div className="department-node-top">
+                          <span>
+                            0{index + 1}
+                            <span className="department-node-en">
+                              {' '}
+                              / {item.en}
                             </span>
-                            <Icon
-                              size={17}
-                              strokeWidth={1.3}
-                              aria-hidden="true"
+                          </span>
+                          <Icon
+                            size={17}
+                            strokeWidth={1.3}
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <div className="department-node-content">
+                          {index === 1 && (
+                            <Image
+                              src="/works/sage-tailoring/4.webp"
+                              alt=""
+                              width={70}
+                              height={80}
+                              sizes="70px"
+                              className="department-node-image"
                             />
-                          </div>
-                          <div className="department-node-content">
-                            {index === 1 && (
-                              <Image
-                                src="/works/sage-tailoring/4.webp"
-                                alt=""
-                                width={70}
-                                height={80}
-                                sizes="70px"
-                                className="department-node-image"
-                              />
-                            )}
-                            <div>
-                              <h3>{item.name}</h3>
-                              <p>
-                                {item.detail.split(' · ').map((detail) => (
-                                  <span key={detail}>{detail}</span>
-                                ))}
-                              </p>
-                            </div>
-                          </div>
-                        </li>
-                        {hasInteracted &&
-                          ((selected !== null &&
-                            index === Math.floor(selected / 2) * 2 + 1) ||
-                            (selected === null && index === 1)) && (
-                            <li
-                              id="department-detail-mobile"
-                              className="department-mobile-detail"
-                              style={{ gridRow: mobileDetailRow }}
-                            >
-                              <article
-                                className="department-detail is-active"
-                                key={activeItem.en}
-                                aria-label={`${activeItem.name}改造详细介绍`}
-                              >
-                                <DepartmentDetailContent
-                                  item={activeItem}
-                                  number={
-                                    selected === null
-                                      ? '00'
-                                      : `0${selected + 1}`
-                                  }
-                                />
-                              </article>
-                            </li>
                           )}
-                      </Fragment>
+                          <div>
+                            <h3>{item.name}</h3>
+                            <p>
+                              {item.detail.split(' · ').map((detail) => (
+                                <span key={detail}>{detail}</span>
+                              ))}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
                     );
                   })}
                 </ul>
@@ -532,6 +528,44 @@ export function DepartmentTransformation({ onBrief }: { onBrief: () => void }) {
               <span className="department-caption-line" aria-hidden="true" />
               服务范围示意 · 工具与数据接入按企业授权确定
             </figcaption>
+            <div
+              ref={mobileDetail}
+              id="department-detail-mobile"
+              className="department-mobile-detail"
+              hidden={!hasInteracted}
+            >
+              <button
+                type="button"
+                className="department-detail-close"
+                onClick={() => {
+                  clearHover();
+                  setHasInteracted(false);
+                  setSelected(null);
+                  art.current?.focus({ preventScroll: true });
+                  art.current?.scrollIntoView({
+                    block: 'center',
+                    behavior: window.matchMedia(
+                      '(prefers-reduced-motion: reduce)',
+                    ).matches
+                      ? 'instant'
+                      : 'smooth',
+                  });
+                }}
+              >
+                收起介绍
+                <X size={16} aria-hidden="true" />
+              </button>
+              <article
+                className="department-detail is-active"
+                key={activeItem.en}
+                aria-label={`${activeItem.name}改造详细介绍`}
+              >
+                <DepartmentDetailContent
+                  item={activeItem}
+                  number={selected === null ? '00' : `0${selected + 1}`}
+                />
+              </article>
+            </div>
           </figure>
         </div>
         <div className="department-service-line">

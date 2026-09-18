@@ -657,12 +657,22 @@
     margin: 0 15px;
   }
 }
+.department-connections-portrait {
+  display: none;
+}
+.department-art:focus {
+  outline: none;
+}
+.department-mobile-detail[hidden] {
+  display: none;
+}
 @media (max-width: 1000px) {
   .department-layout {
     display: block;
+    min-height: 0;
   }
   .department-copy {
-    padding-bottom: 35px;
+    padding-bottom: 32px;
   }
   .department-detail-stack {
     display: none;
@@ -671,104 +681,48 @@
     display: block;
     font-size: 16px;
     color: #596550;
-    margin-top: 22px;
+    margin-top: 20px;
     line-height: 1.85;
   }
   .department-mobile-detail {
     display: block;
     position: relative;
     z-index: 1;
-    grid-column: 1 / -1;
-    list-style: none;
     text-align: left;
+    margin-top: 30px;
     border-top: 1px solid #a8bba0;
     border-bottom: 1px solid #c7d1bf;
-    background: #f5f7f0;
+    background: linear-gradient(130deg, #f8faf3, #f1f5eafa);
     padding: 24px;
+  }
+  .department-detail-close {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin: -8px 0 16px auto;
+    padding: 5px 0 5px 12px;
+    color: #506748;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .department-detail-close:focus-visible {
+    outline: 2px solid #315d3c;
+    outline-offset: 3px;
   }
   .studio-home .department-signature {
     display: none;
   }
   .department-figure {
-    max-width: 780px;
-    margin: 10px auto 0;
+    max-width: 740px;
+    margin: 0 auto;
   }
   .department-art {
-    aspect-ratio: auto;
-    perspective: none;
-  }
-  .department-plane {
-    position: relative;
-    transform: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-  }
-  .department-plane::before {
-    inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent calc(50% - 0.5px),
-      #b7c6a8 calc(50% - 0.5px),
-      #b7c6a8 calc(50% + 0.5px),
-      transparent calc(50% + 0.5px)
-    );
-    mask-image: none;
-  }
-  .department-connections {
-    display: none;
-  }
-  .department-nodes {
-    display: contents;
-  }
-  .department-node {
-    position: relative;
-    inset: auto;
-    width: auto;
-    grid-row: var(--mobile-node-row);
-  }
-  .department-node-0,
-  .department-node-2,
-  .department-node-4 {
-    grid-column: 1;
-  }
-  .department-node-1,
-  .department-node-3,
-  .department-node-5 {
-    grid-column: 2;
-  }
-  .department-core {
-    position: relative;
-    inset: auto;
-    width: auto;
-    min-height: 0;
-    grid-row: var(--mobile-core-row);
-    grid-column: 1 / -1;
-    margin: 8px 12px;
-    padding: 18px 22px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    text-align: left;
-  }
-  .department-core-mark {
-    display: none;
-  }
-  .department-core-label {
-    grid-column: 1;
-  }
-  .department-core strong {
-    grid-column: 1;
-    grid-row: 2;
-    font-size: 20px;
-  }
-  .department-core-rule {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    margin: 0;
-    text-align: right;
+    aspect-ratio: 800 / 640;
+    perspective: 1000px;
   }
   .department-figure figcaption {
-    margin-top: 24px;
+    margin-top: 22px;
   }
   .department-service-line {
     margin-top: 38px;
@@ -778,148 +732,205 @@
   }
 }
 @media (max-width: 760px) {
+  .department-figure {
+    max-width: 500px;
+  }
   .department-section {
-    padding: 54px 0 30px;
+    padding: 48px 0 30px;
   }
   .department-copy {
-    padding: 0 0 40px;
+    padding: 0 0 30px;
   }
   .studio-home .department-copy h2 {
-    font-size: clamp(36px, 9vw, 48px);
-    margin-top: 24px;
-    line-height: 1.45;
-  }
-  .studio-home .department-description {
+    font-size: clamp(34px, 9vw, 44px);
     margin-top: 22px;
-    font-size: 16px;
+    line-height: 1.4;
   }
   .department-contact {
-    margin-top: 24px;
+    margin-top: 20px;
+    gap: 28px;
   }
   .department-art-heading {
-    margin: 0 0 24px;
+    margin: 0 0 14px;
+    padding-bottom: 12px;
     font-size: 12px;
+    letter-spacing: 0.055em;
+    gap: 12px;
+  }
+  .department-explore-hint {
+    font-size: 12px;
+    letter-spacing: 0;
   }
   .department-art {
+    width: calc(100% + 24px);
+    margin-inline: -12px;
+    height: 520px;
     aspect-ratio: auto;
-    perspective: none;
+    perspective: 850px;
+    isolation: isolate;
+  }
+  .department-art::before {
+    inset: -4% -8%;
+    background: radial-gradient(
+      ellipse at 50% 49%,
+      #fcfef4 0%,
+      #f7faecb8 29%,
+      transparent 68%
+    );
   }
   .department-plane {
-    position: relative;
-    transform: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    inset: 12px 14px 8px;
+    transform: rotateX(8deg) rotateY(-6deg) rotateZ(-3deg);
   }
   .department-plane::before {
-    inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent calc(50% - 0.5px),
-      #b7c6a8 calc(50% - 0.5px),
-      #b7c6a8 calc(50% + 0.5px),
-      transparent calc(50% + 0.5px)
-    );
-    mask-image: none;
+    inset: -4% -5%;
+    background-size: 26px 26px;
+    background-image:
+      linear-gradient(#73856814 1px, transparent 1px),
+      linear-gradient(90deg, #73856814 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse, black 24%, transparent 74%);
   }
-  .department-connections {
+  .department-connections-wide {
     display: none;
   }
-  .department-nodes {
-    display: contents;
+  .department-connections-portrait {
+    display: block;
+  }
+  .department-traces {
+    stroke: #8ca27f;
+    stroke-width: 1.35;
+  }
+  .department-traces path.is-selected {
+    stroke-width: 2;
   }
   .department-node {
-    position: relative;
-    inset: auto;
-    width: auto;
-    padding: 15px 13px 16px;
-    min-height: 116px;
-    background: #fafcf5eb;
+    padding: 13px 12px 14px;
+    min-height: 112px;
+    background: linear-gradient(125deg, #fffffff5, #f6f9eae8);
     box-shadow:
-      0 2px 0 #e0e5d9,
-      0 7px 15px -13px #40583755;
+      1px 3px 0 #d1dbc6,
+      2px 15px 18px -12px #40583755;
+    border-color: #bccbb0;
   }
   .department-node-0 {
-    grid-column: 1;
+    left: 4%;
+    top: 3%;
+    width: 40%;
   }
   .department-node-1 {
-    grid-column: 2;
+    left: 0;
+    top: 38%;
+    width: 32%;
   }
   .department-node-2 {
-    grid-column: 1;
+    left: 59%;
+    top: 8%;
+    width: 38%;
   }
   .department-node-3 {
-    grid-column: 2;
+    left: 68%;
+    top: 40%;
+    width: 32%;
   }
   .department-node-4 {
-    grid-column: 1;
+    left: 6%;
+    top: 73%;
+    width: 40%;
   }
   .department-node-5 {
-    grid-column: 2;
+    left: 59%;
+    top: 77%;
+    width: 39%;
   }
   .department-node-top {
     margin-bottom: 12px;
   }
   .department-node-top > span {
     font-size: 12px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
   }
-  .department-node-top > svg {
+  .department-node-en {
     display: none;
   }
+  .department-node-top > svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
   .department-node h3 {
-    font-size: 23px;
+    font-size: 22px;
+    line-height: 1.3;
   }
   .department-node p {
     font-size: 12px;
-    margin-top: 8px !important;
+    line-height: 1.65;
+    margin-top: 7px !important;
     white-space: normal;
   }
+  .department-node p > span {
+    display: block;
+    white-space: nowrap;
+  }
+  .department-node p > span + span::before {
+    content: none;
+  }
   .department-node-image {
-    display: none;
+    display: block;
+    position: absolute;
+    right: 7px;
+    top: -19px;
+    width: 33px;
+    height: 43px;
+    border-width: 2px;
+    transform: rotate(8deg);
+    box-shadow: 0 4px 8px #23352424;
+  }
+  .department-node-1 .department-node-top > svg {
+    visibility: hidden;
   }
   .department-core {
-    position: relative;
-    inset: auto;
-    width: auto;
+    left: 35%;
+    top: 35%;
+    width: 30%;
     min-width: 0;
-    min-height: 0;
-    grid-row: var(--mobile-core-row);
-    grid-column: 1/-1;
-    padding: 16px 18px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 6px 10px;
-    align-items: center;
-    margin: 8px 12px;
-    text-align: left;
+    min-height: 153px;
+    padding: 13px 6px;
     box-shadow:
-      2px 3px 0 #8d9d7c,
-      0 14px 18px -14px #38543c70;
+      3px 6px 0 #819770,
+      0 24px 25px -14px #38543c85,
+      inset 0 1px #c1d4a966;
   }
   .department-core-label {
-    grid-column: 1;
     font-size: 12px;
+    letter-spacing: 0;
   }
   .department-core-mark {
-    display: none;
+    height: 32px;
+    margin: 10px 0;
+  }
+  .department-core-mark > span {
+    width: 23px;
+    height: 23px;
   }
   .department-core strong {
-    grid-column: 1;
-    grid-row: 2;
-    font-size: 20px;
+    font-size: 17px;
+    line-height: 1.4;
   }
   .department-core-rule {
-    grid-column: 2;
-    grid-row: 1 / 3;
-    margin: 0;
+    margin-top: 9px;
     font-size: 12px;
-    text-align: right;
+    line-height: 1.75;
   }
   .department-figure figcaption {
-    margin: 24px 0 0;
+    margin: 22px 0 0;
     justify-content: flex-start;
+    gap: 9px;
     font-size: 12px;
+    line-height: 1.7;
+  }
+  .department-caption-line {
+    width: 19px;
+    flex-shrink: 0;
   }
   .department-service-line {
     margin-top: 30px;
@@ -938,7 +949,8 @@
     display: none;
   }
   .department-mobile-detail {
-    padding: 23px 18px;
+    padding: 22px 18px;
+    margin-top: 25px;
   }
   .department-detail h3 {
     font-size: 22px;
@@ -965,34 +977,33 @@
     font-size: 12px;
     margin: 0;
   }
-  .department-explore-hint {
-    font-size: 12px;
-    letter-spacing: 0;
-  }
 }
 @media (max-width: 380px) {
+  .department-art {
+    height: 505px;
+  }
   .department-node {
-    padding: 13px 11px;
-  }
-  .department-node-top > svg {
-    display: none;
-  }
-  .department-node-top > span {
-    font-size: 12px;
-    letter-spacing: 0;
-    white-space: nowrap;
+    padding-inline: 9px;
   }
   .department-node h3 {
-    font-size: 22px;
+    font-size: 20px;
   }
-  .department-node p {
-    font-size: 12px;
+  .department-core strong {
+    font-size: 16px;
   }
-  .department-node p > span {
-    display: block;
+  .department-core {
+    left: 34%;
+    width: 32%;
   }
-  .department-node p > span + span::before {
-    content: none;
+  .department-node-1,
+  .department-node-3 {
+    width: 30%;
+  }
+  .department-node-3 {
+    left: 70%;
+  }
+  .department-art-heading > span:first-child {
+    letter-spacing: 0;
   }
   .brief-service-options {
     flex-direction: column;
