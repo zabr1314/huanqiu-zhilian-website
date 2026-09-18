@@ -1504,6 +1504,8 @@
 }
 .studio-brief-dialog {
   max-width: 560px !important;
+  max-height: 92svh;
+  overflow-y: auto;
   padding: 35px !important;
   gap: 16px !important;
 }

@@ -1,0 +1,446 @@
+.collaboration-section {
+  padding-block: 96px 68px;
+  scroll-margin-top: 35px;
+}
+.collaboration-heading {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 70px;
+  align-items: end;
+  padding-bottom: 60px;
+}
+.collaboration-heading h2 {
+  margin-top: 22px;
+  font-size: clamp(32px, 3vw, 44px);
+  line-height: 1.5;
+  letter-spacing: -0.05em;
+}
+.studio-home .collaboration-intro p {
+  margin: 0;
+  color: #626b62;
+  font-size: 16px;
+  line-height: 1.9;
+}
+.studio-home .collaboration-intro p + p {
+  margin-top: 14px;
+}
+.collaboration-path {
+  display: grid;
+  grid-template-columns: 235px minmax(0, 1fr);
+  gap: 42px;
+  border-top: 1px solid #c8cec3;
+  padding-block: 36px 38px;
+}
+.collaboration-path-heading > p {
+  color: #64715f;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.collaboration-path-heading h3 {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #253f30;
+}
+.collaboration-path-heading > span {
+  display: block;
+  color: #657062;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+.collaboration-steps {
+  display: grid;
+  grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
+  column-gap: 28px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.collaboration-steps > li {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+.collaboration-step-index {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #596e52;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+}
+.collaboration-step-index::after {
+  content: '';
+  height: 1px;
+  background: #d4d9cc;
+  flex: 1;
+}
+.collaboration-steps h4 {
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 500;
+  margin-top: 20px;
+  color: #263b2c;
+}
+.studio-home .collaboration-steps li > p {
+  color: #626b62;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 12px 0 22px;
+}
+.collaboration-delivery {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 14px;
+  color: #3c5636;
+  line-height: 1.7;
+  margin-top: auto;
+}
+.collaboration-delivery > span {
+  font-size: 12px;
+  color: #697360;
+  flex-shrink: 0;
+}
+.collaboration-next {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid #c8cec3;
+  padding-top: 27px;
+}
+.studio-home .collaboration-next p {
+  color: #657062;
+  font-size: 16px;
+  margin: 0;
+}
+.collaboration-next > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 35px;
+  padding-block: 6px;
+  border-bottom: 1px solid #a2b095;
+  color: #2c513a;
+  font-size: 16px;
+  white-space: nowrap;
+}
+.collaboration-contact {
+  background: #16271f;
+  padding-top: 75px;
+  scroll-margin-top: 0;
+}
+.collaboration-contact-main {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: start;
+  gap: 75px;
+}
+.collaboration-contact .studio-kicker {
+  color: #bcc7b5;
+}
+.collaboration-contact h2 {
+  font-size: clamp(32px, 3vw, 46px);
+  margin-top: 24px;
+  line-height: 1.5;
+  letter-spacing: -0.045em;
+}
+.collaboration-contact h2 > span {
+  color: #c1d4b0;
+}
+.studio-home .collaboration-contact-intro {
+  margin-top: 25px;
+  font-size: 16px;
+  color: #c0cabd;
+  line-height: 1.9;
+}
+.collaboration-contact-actions {
+  padding-top: 8px;
+  min-width: 0;
+}
+.contact-channels {
+  min-width: 0;
+}
+.contact-channel-row {
+  padding-block: 20px;
+  border-top: 1px solid #71806a70;
+}
+.contact-channel-label {
+  font-size: 14px;
+  color: #bdc9b8;
+}
+.contact-channel-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 13px;
+}
+.contact-wechat-id,
+.contact-email {
+  font-size: clamp(23px, 2.2vw, 31px);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.4;
+  color: #f2f3e9;
+  overflow-wrap: anywhere;
+}
+.contact-channel-value button {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #8da17d;
+  padding: 9px 12px;
+  color: #d6e3c9;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.contact-channel-value button:hover {
+  background: #ffffff12;
+}
+.contact-copy-status {
+  display: block;
+  min-height: 22px;
+  margin-top: 9px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #c0d0b3;
+}
+.contact-email {
+  margin-top: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.contact-email span {
+  min-width: 0;
+}
+.contact-email svg {
+  flex-shrink: 0;
+}
+.contact-email:hover {
+  color: #c9dfb8;
+}
+.contact-preparation {
+  padding-top: 24px;
+  border-top: 1px solid #71806a70;
+  margin-top: 5px;
+}
+.studio-home .contact-preparation p {
+  font-size: 14px;
+  color: #bdc9b8;
+  line-height: 1.8;
+}
+.contact-preparation button {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 15px;
+  color: #e0e6d9;
+  margin-top: 12px;
+  border-bottom: 1px solid #829875;
+  padding-block: 6px;
+  cursor: pointer;
+}
+.collaboration-contact .studio-footer-bottom {
+  color: #b2beac;
+  border-color: #71806a70;
+  margin-top: 65px;
+}
+.brief-contact-channels {
+  margin-top: 18px;
+  border-top: 1px solid #c4cfbb;
+  padding-top: 20px;
+}
+.brief-contact-channels > p {
+  color: #56664e;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.contact-channels-compact .contact-channel-row {
+  padding: 10px 0;
+  border: 0;
+}
+.contact-channels-compact .contact-channel-label {
+  color: #596a50;
+  font-size: 12px;
+}
+.contact-channels-compact .contact-channel-value,
+.contact-channels-compact .contact-email {
+  margin-top: 6px;
+}
+.contact-channels-compact .contact-wechat-id,
+.contact-channels-compact .contact-email {
+  font-size: 20px;
+  color: #294d36;
+}
+.contact-channels-compact .contact-channel-value button {
+  color: #294d36;
+  border-color: #94a789;
+  padding: 6px 9px;
+}
+.contact-channels-compact .contact-copy-status {
+  color: #596a50;
+  margin-top: 4px;
+}
+.contact-channel-value button:focus-visible,
+.contact-email:focus-visible,
+.contact-preparation button:focus-visible,
+.collaboration-next a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+@media (max-width: 1100px) {
+  .collaboration-path {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .collaboration-path-heading {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 30px;
+    align-items: end;
+  }
+  .collaboration-path-heading > p {
+    grid-column: 1 / -1;
+  }
+  .collaboration-path-heading h3,
+  .collaboration-path-heading > span {
+    margin: 0;
+  }
+  .collaboration-path-heading > span {
+    text-align: right;
+  }
+  .collaboration-heading,
+  .collaboration-contact-main {
+    gap: 38px;
+  }
+  .contact-channel-value {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .collaboration-section {
+    padding-block: 58px 45px;
+  }
+  .collaboration-heading {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-bottom: 36px;
+  }
+  .collaboration-heading h2 {
+    font-size: clamp(30px, 8vw, 38px);
+  }
+  .collaboration-path {
+    padding-block: 30px;
+    gap: 28px;
+  }
+  .collaboration-path-heading {
+    display: block;
+  }
+  .collaboration-path-heading h3 {
+    font-size: 24px;
+    margin-top: 14px;
+  }
+  .collaboration-path-heading > span {
+    text-align: left;
+    margin-top: 8px;
+  }
+  .collaboration-steps {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .collaboration-steps > li {
+    padding-left: 43px;
+  }
+  .collaboration-step-index {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 27px;
+  }
+  .collaboration-step-index::after {
+    display: none;
+  }
+  .collaboration-steps > li:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 30px;
+    bottom: -15px;
+    border-left: 1px solid #c5cfbd;
+  }
+  .collaboration-steps h4 {
+    margin: 0;
+    font-size: 20px;
+  }
+  .studio-home .collaboration-steps li > p {
+    margin: 8px 0 13px;
+  }
+  .collaboration-next {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .collaboration-contact {
+    padding-top: 52px;
+  }
+  .collaboration-contact-main {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .collaboration-contact h2 {
+    font-size: clamp(31px, 8.5vw, 39px);
+  }
+  .collaboration-contact-actions {
+    padding: 0;
+  }
+  .contact-channel-value {
+    flex-direction: row;
+    align-items: center;
+  }
+  .contact-wechat-id,
+  .contact-email {
+    font-size: 26px;
+  }
+  .contact-channel-value button {
+    padding: 8px 10px;
+  }
+  .collaboration-contact .studio-footer-bottom {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 380px) {
+  .contact-channel-value {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .contact-wechat-id,
+  .contact-email {
+    font-size: 24px;
+  }
+  .contact-channels-compact .contact-channel-value {
+    flex-direction: row;
+    align-items: center;
+  }
+  .contact-channels-compact .contact-channel-value button > span {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-channel-value button {
+    transition: none;
+  }
+}
