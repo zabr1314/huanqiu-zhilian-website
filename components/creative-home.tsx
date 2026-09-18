@@ -49,10 +49,10 @@ export function CreativeHome() {
         跳到精选作品
       </a>
       <header className="studio-header">
-        <Link className="studio-brand" href="/" aria-label="天才教授首页">
+        <Link className="studio-brand" href="/" aria-label="寰球智联首页">
           <Aperture aria-hidden="true" />
           <span>
-            天才教授<small>AI CREATIVE & SYSTEMS</small>
+            寰球智联<small>AI CREATIVE & SYSTEMS</small>
           </span>
         </Link>
         <nav aria-label="主导航">

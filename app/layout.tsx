@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: '天才教授｜AIGC 创意与 AI Agent 系统',
+  title: '寰球智联｜AIGC 创意与 AI Agent 系统',
   description:
     'AIGC 品牌影像、AI 模特与商品视觉，以及跨境电商部门的 AI 化改造。从岗位任务、业务流程到系统衔接，让创意与人机协作进入日常业务。',
 };

@@ -12,9 +12,9 @@ export function SiteHeader({ dark = false }: { dark?: boolean }) {
         dark ? 'border-white/10 bg-[#090d14]/90 text-white' : 'border-ink/10 bg-paper/90 text-ink',
       )}>
         <div className="mx-auto flex h-18 max-w-[1440px] items-center justify-between px-5 lg:px-10">
-          <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="天才教授 AI 改造局首页">
+          <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="寰球智联 AI 改造局首页">
             <span className={cn('grid size-9 shrink-0 place-items-center rounded-full text-sm font-bold', dark ? 'bg-white text-ink' : 'bg-ink text-paper')}>AI</span>
-            <span className="truncate text-[15px] font-semibold tracking-[-0.02em]">天才教授 <span className={dark ? 'text-white/35' : 'text-ink/35'}>/</span> AI 改造局</span>
+            <span className="truncate text-[15px] font-semibold tracking-[-0.02em]">寰球智联 <span className={dark ? 'text-white/35' : 'text-ink/35'}>/</span> AI 改造局</span>
           </Link>
           <nav className={cn('hidden items-center gap-7 text-sm lg:flex', dark ? 'text-white/60' : 'text-ink/62')} aria-label="主导航">
             {navigation.map((item) => (

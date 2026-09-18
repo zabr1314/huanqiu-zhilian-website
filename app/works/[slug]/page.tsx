@@ -16,10 +16,10 @@ export async function generateMetadata({
   const work = findWork(slug);
   return work
     ? {
-        title: `${work.title} · ${work.subtitle}｜天才教授`,
+        title: `${work.title} · ${work.subtitle}｜寰球智联`,
         description: work.description,
       }
-    : { title: '作品未找到｜天才教授' };
+    : { title: '作品未找到｜寰球智联' };
 }
 
 export default async function WorkPage({

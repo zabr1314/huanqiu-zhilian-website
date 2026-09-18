@@ -81,7 +81,7 @@ export function CreativeCanvasHero({
       <div className="canvas-hero-inner">
         <div className="canvas-hero-copy">
           <p className="canvas-eyebrow">
-            天才教授 <span>/</span> AIGC & AI AGENTS
+            寰球智联 <span>/</span> AIGC & AI AGENTS
           </p>
           <h1 id="hero-title">
             让想象<span className="canvas-word">成形</span>。<br />

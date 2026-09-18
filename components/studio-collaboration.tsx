@@ -183,7 +183,7 @@ export function ContactChannels({ compact = false }: { compact?: boolean }) {
           <span className="contact-channel-label">商务邮箱</span>
           <a
             className="contact-email"
-            href={`mailto:${studioContact.email}?subject=${encodeURIComponent('项目合作咨询｜天才教授')}`}
+            href={`mailto:${studioContact.email}?subject=${encodeURIComponent('项目合作咨询｜寰球智联')}`}
           >
             <span>{studioContact.email}</span>
             <ArrowUpRight size={21} aria-hidden="true" />
@@ -232,7 +232,7 @@ export function StudioContact({ onBrief }: { onBrief: () => void }) {
           </div>
         </div>
         <div className="studio-footer-bottom">
-          <span>© 2026 天才教授</span>
+          <span>© 2026 寰球智联</span>
           <span>AIGC 创意 · 跨境电商部门 AI 改造</span>
           <div>
             <Link href="/demo">更多交互样板</Link>

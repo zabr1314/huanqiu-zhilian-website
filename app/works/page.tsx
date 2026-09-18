@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { WorkLibrary } from '@/components/portfolio';
 
 export const metadata: Metadata = {
-  title: '作品集｜天才教授',
+  title: '作品集｜寰球智联',
   description:
-    '品牌宣传片、AI 模特与商品视觉、叙事短片。浏览天才教授的精选项目与视觉系列。',
+    '品牌宣传片、AI 模特与商品视觉、叙事短片。浏览寰球智联的精选项目与视觉系列。',
 };
 
 export default function WorksPage() {

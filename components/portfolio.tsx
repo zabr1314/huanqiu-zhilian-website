@@ -30,10 +30,10 @@ import {
 export function PortfolioHeader() {
   return (
     <header className="portfolio-header">
-      <a className="studio-brand" href="/" aria-label="天才教授首页">
+      <a className="studio-brand" href="/" aria-label="寰球智联首页">
         <Aperture aria-hidden="true" />
         <span>
-          天才教授<small>AI CREATIVE & SYSTEMS</small>
+          寰球智联<small>AI CREATIVE & SYSTEMS</small>
         </span>
       </a>
       <nav aria-label="作品导航">
@@ -408,7 +408,7 @@ export function PortfolioFooter() {
           从这里开始 <ArrowUpRight size={23} />
         </a>
       </div>
-      <span>© 2026 天才教授 · AIGC 创意与 AI Agent 系统</span>
+      <span>© 2026 寰球智联 · AIGC 创意与 AI Agent 系统</span>
     </footer>
   );
 }
